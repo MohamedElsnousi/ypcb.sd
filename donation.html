@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Complete Your Donation</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    
+    <style>
+        :root {
+            --primary-blue: #0077b5;
+            --text-dark: #1e293b;
+            --text-muted: #64748b;
+        }
+
+        body { 
+            background-color: #ffffff; 
+            font-family: 'Inter', sans-serif;
+            color: var(--text-dark);
+            padding-top: 50px;
+        }
+
+        .main-container { max-width: 1140px; margin: 0 auto; padding: 0 20px; }
+
+        /* Left Side */
+        .campaign-header-img {
+            width: 100%;
+            height: 500px;
+            object-fit: cover;
+            border-radius: 20px;
+            margin-bottom: 30px;
+        }
+        .campaign-title { font-weight: 800; font-size: 2.3rem; margin-bottom: 20px; }
+        .campaign-description { font-size: 1.1rem; line-height: 1.8; color: var(--text-muted); }
+
+        /* Right Side: Donation Card */
+        .donation-sidebar {
+            border: 1px solid #edf2f7;
+            border-radius: 24px;
+            padding: 32px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 20px;
+        }
+
+        /* 1. Progress Bar at the Top */
+        .stats-row { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 8px; }
+        .amount-raised { font-weight: 700; font-size: 1.3rem; color: var(--primary-blue); }
+        .goal-text { color: var(--text-muted); font-weight: 400; font-size: 0.9rem; }
+        .progress { height: 8px; background-color: #e2e8f0; border-radius: 10px; margin-bottom: 30px; }
+        .progress-bar { background-color: var(--primary-blue); }
+
+        /* 2. Frequency Toggle (Monthly / One-time) */
+        .freq-toggle {
+            display: flex;
+            background: #f1f5f9;
+            padding: 5px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+        }
+        .freq-btn {
+            flex: 1;
+            border: none;
+            padding: 12px;
+            border-radius: 10px;
+            font-weight: 600;
+            background: transparent;
+            color: var(--text-muted);
+            transition: 0.3s;
+        }
+        .freq-btn.active { background: #ffffff; color: var(--primary-blue); box-shadow: 0 2px 10px rgba(0,0,0,0.06); }
+
+        /* 3. Amount Grid */
+        .amount-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        .amount-item {
+            border: 1px solid #e2e8f0;
+            padding: 15px 5px;
+            border-radius: 12px;
+            text-align: center;
+            cursor: pointer;
+            font-weight: 700;
+            transition: 0.2s;
+        }
+        .amount-item:hover { border-color: var(--primary-blue); background: #f0f9ff; }
+        .amount-item.selected { border-color: var(--primary-blue); background: #e0f2fe; color: var(--primary-blue); }
+
+        .custom-input-group {
+            position: relative;
+            margin-bottom: 30px;
+        }
+        .custom-input-group input {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid #e2e8f0;
+            border-radius: 12px;
+            font-weight: 700;
+            text-align: left;
+            padding-left: 55px;
+            font-size: 1.1rem;
+        }
+        .currency-label { position: absolute; left: 15px; top: 50%; transform: translateY(-50%); font-weight: 800; color: #94a3b8; }
+
+        .btn-submit-donation {
+            background-color: var(--primary-blue);
+            color: white;
+            width: 100%;
+            padding: 18px;
+            border: none;
+            border-radius: 15px;
+            font-weight: 700;
+            font-size: 1.2rem;
+            transition: 0.3s;
+        }
+        .btn-submit-donation:hover { transform: translateY(-2px); box-shadow: 0 5px 15px rgba(21, 96, 130, 0.3); }
+    </style>
+</head>
+<body>
+
+<div class="main-container">
+    <div class="row g-5">
+        
+        <div class="col-lg-7">
+            <img id="campaignImg" src="" alt="Campaign" class="campaign-header-img">
+            <h1 id="campaignTitle" class="campaign-title"></h1>
+            <p id="campaignDesc" class="campaign-description"></p>
+        </div>
+
+        <div class="col-lg-5">
+            <div class="donation-sidebar">
+                
+                <div id="progressContent">
+                    <div class="stats-row">
+                        <span class="amount-raised">$1,030 <span class="goal-text">raised of $11,250</span></span>
+                        <span class="fw-bold small">9%</span>
+                    </div>
+                    <div class="progress">
+                        <div class="progress-bar" style="width: 9%"></div>
+                    </div>
+                </div>
+
+                <div class="freq-toggle">
+                    <button class="freq-btn active" onclick="toggleFreq(this)">One-time</button>
+                    <button class="freq-btn" onclick="toggleFreq(this)"><i class="bi bi-heart-fill me-1 small"></i> Monthly</button>
+                </div>
+
+                <p class="fw-bold mb-3">Select Amount</p>
+
+                <div class="amount-grid">
+                    <div class="amount-item" onclick="selectAmount(this, 10)">$10</div>
+                    <div class="amount-item" onclick="selectAmount(this, 25)">$25</div>
+                    <div class="amount-item" onclick="selectAmount(this, 50)">$50</div>
+                    <div class="amount-item" onclick="selectAmount(this, 100)">$100</div>
+                    <div class="amount-item" onclick="selectAmount(this, 250)">$250</div>
+                    <div class="amount-item selected" onclick="selectAmount(this, 500)">$500</div>
+                </div>
+
+                <div class="custom-input-group">
+                    <span class="currency-label">USD</span>
+                    <input type="number" id="customAmt" value="500">
+                </div>
+
+                <button class="btn-submit-donation">Support Now</button>
+
+                <div class="text-center mt-3 text-muted small">
+                    <i class="bi bi-shield-lock-fill text-success"></i> Guaranteed Safe & Secure
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+    const urlParams = new URLSearchParams(window.location.search);
+    document.getElementById('campaignTitle').innerText = urlParams.get('title') || "Global Emergency Relief";
+    document.getElementById('campaignDesc').innerText = urlParams.get('desc') || "Providing immediate assistance to families affected by the latest crisis. Your donation brings hope.";
+    document.getElementById('campaignImg').src = urlParams.get('img') || "https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?q=80&w=2070";
+
+    function selectAmount(element, val) {
+        document.querySelectorAll('.amount-item').forEach(el => el.classList.remove('selected'));
+        element.classList.add('selected');
+        document.getElementById('customAmt').value = val;
+    }
+
+    function toggleFreq(btn) {
+        document.querySelectorAll('.freq-btn').forEach(b => b.classList.remove('active'));
+        btn.classList.add('active');
+    }
+</script>
+
+</body>
+</html>

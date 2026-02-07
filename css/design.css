@@ -1,0 +1,510 @@
+/* CSS Variables */
+:root {
+    --primary-color: #0077b5;
+    --primary-dark: #026ba4;
+    --primary-light: #0077b5;
+    --secondary-color: #ffc400;
+    --text-dark: #0077b5;
+    --text-light: #666666;
+    --white: #ffffff;
+    --black: #000000; 
+    --background-light: #f8f9fa;
+    --border-color: #0077b5;
+    --completed-color: #0077b5;
+    --ongoing-color: #ffc400;
+    --planned-color: #2196f3;
+    --box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    --box-shadow-hover: 0 4px 16px rgba(0, 0, 0, 0.15);
+    --border-radius: 8px;
+    --border-radius-large: 12px;
+    --transition: all 0.3s ease;
+}
+
+
+/* Custom Styles */
+
+body {
+    font-family:Verdana, Geneva, Tahoma, sans-serif ;
+    background-color: #f4f4f4;
+    padding-top: 75px;
+}
+
+
+
+/* تنسيق الهيرو مع التدرج الأفقي */
+.hero-section {
+    height: 100vh;
+    /* التدرج يبدأ داكن من اليسار (0.9) ويصبح شفافاً جداً في اليمين (0.2) */
+    background: linear-gradient(to right, rgba(0, 0, 0, 0.9) 30%, rgba(0, 0, 0, 0.2) 100%), 
+                url('https://res.cloudinary.com/dbokfaf9p/image/upload/v1769812533/Projects_7_eynww1.jpg');
+    background-size: cover;
+    background-position: center;
+    position: relative;
+}
+
+/* تمييز كلمة داخل العنوان */
+.highlight-text {
+    color: var(--primary-color); /* الأزرق الذي اخترته سابقاً */
+}
+
+.hero-description {
+    font-size: 14px;
+    color: rgba(255, 255, 255, 0.8);
+    max-width: 550px;
+    line-height: 1.6;
+}
+
+/* زر Donate Now - أزرق صريح */
+.btn-primary-donate {
+    background-color: var(--primary-color) !important;
+    color: white !important;
+    border: none;
+    border-radius: 5px;
+    transition: 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.btn-primary-donate:hover {
+    background-color: #037ec1 !important;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(1, 93, 191, 0.621);
+}
+
+/* زر Get Involved - شفاف بحدود بيضاء */
+.btn-outline-involved {
+    background-color: transparent !important;
+    color: white !important;
+    border: 2px solid white !important;
+    border-radius: 5px;
+    transition: 0.3s ease;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.btn-outline-involved:hover {
+    background-color: white !important;
+    color: #000 !important;
+    transform: translateY(-3px);
+}
+
+/* التجاوب مع الجوال */
+@media (max-width: 991px) {
+    .hero-section {
+        background: linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)), 
+                    url('https://res.cloudinary.com/dbokfaf9p/image/upload/v1769812533/Projects_7_eynww1.jpg');
+        text-align: center;
+    }
+    .hero-section .text-start {
+        text-align: center !important;
+    }
+    .hero-section .d-flex {
+        justify-content: center !important;
+    }
+}
+
+/* تنسيقات القسم الرئيسي */
+.who-we-are-section {
+    padding: 100px 0;
+    background-color: var(--white);
+    font-family: Arial, sans-serif; /* استخدام خط بسيط كما في الصورة */
+}
+
+.custom-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 500px;
+}
+
+/* الصندوق الرمادي */
+.text-box {
+    background-color: #ffff; /* نفس درجة الرمادي في الصورة */
+    padding: 60px;
+    width: 60%;
+    position: absolute;
+    left: 0;
+    z-index: 1;
+    text-align: left;
+}
+
+.text-box .title {
+    font-size: 2rem;
+    font-weight: 400;
+    margin-bottom: 30px;
+    text-transform: uppercase;
+    color: var(--primary-color);
+}
+
+.text-box .description {
+    font-size: 0.95rem;
+    line-height: 1.6;
+    color: var(--black);
+    margin-bottom: 40px;
+    max-width: 85%;
+}
+
+.text-box .learn-more {
+    font-size: 1.5rem;
+    color: #000;
+    text-decoration: none;
+    font-weight: 500;
+}
+.text-box .learn-more:hover {
+    color: var(--primary-color);
+}
+
+/* صندوق الصورة المتداخل */
+.image-box {
+    width: 50%;
+    position: relative;
+    margin-left: auto; /* دفع الصورة لليمن */
+    z-index: 2; /* لتكون فوق الصندوق الرمادي */
+}
+
+.image-box img {
+    width: 100%;
+    height: auto;
+    display: block;
+    box-shadow: 15px 15px 50px rgba(0,0,0,0.1);
+}
+
+/* التجاوب مع الشاشات الصغيرة (Mobile Friendly) */
+@media (max-width: 991px) {
+    .custom-wrapper {
+        flex-direction: column-reverse;
+        display: block;
+    }
+    .text-box {
+        position: static;
+        width: 100%;
+        padding: 40px 20px;
+    }
+    .image-box {
+        width: 100%;
+        margin-bottom: -30px; /* تداخل بسيط في الجوال */
+    }
+}
+
+
+/* Team Section */
+.team-section {
+    padding: 4rem 0;
+}
+
+.team-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 4rem;
+}
+
+.team-member {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: 2rem;
+    background-color: var(--white);
+    border-radius: var(--border-radius-large);
+    overflow: hidden;
+    box-shadow: var(--box-shadow);
+    transition: var(--transition);
+}
+
+.team-member:hover {
+    box-shadow: var(--box-shadow-hover);
+}
+
+.member-image {
+    position: relative;
+    overflow: hidden;
+}
+
+.member-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.member-info {
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.member-info h2 {
+    color: var(--primary-color);
+    font-size: 2rem;
+    margin-bottom: 0.5rem;
+}
+
+.member-role {
+    color: var(--secondary-color);
+    font-weight: 600;
+    font-size: 1.1rem;
+    margin-bottom: 1rem;
+}
+
+.member-bio {
+    color: var(--text-light);
+    margin-bottom: 1.5rem;
+    line-height: 1.8;
+}
+
+.member-info .social-links {
+    margin-top: auto;
+}
+
+.member-info .social-links a {
+    background-color: var(--primary-color);
+    color: var(--white);
+}
+
+.member-info .social-links a:hover {
+    background-color: var(--primary-dark);
+}
+
+.join-team {
+    background-color: var(--background-light);
+    padding: 4rem 0;
+    text-align: center;
+}
+
+.join-team h2 {
+    font-size: 2.5rem;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+.join-team p {
+    font-size: 1.2rem;
+    color: var(--text-light);
+    margin-bottom: 2rem;
+    max-width: 800px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+
+.team-section{
+    padding-top: 50px;
+}
+ /* البطاقة المصغرة */
+        .member-card {
+            max-width: 650px; /* تصغير عرض البطاقة الكلي */
+            margin: 0 auto 20px auto; 
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            border: 1px solid #eee;
+            overflow: hidden;
+            transition: 0.3s;
+        }
+
+        .member-card:hover { transform: scale(1.01); box-shadow: 0 5px 15px rgba(0,0,0,0.1); }
+
+        /* حاوية الصورة على اليسار */
+        .img-container {
+            width: 180px; /* عرض ثابت وأصغر للصورة */
+            min-width: 180px;
+        }
+
+        .member-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .card-body-custom {
+            padding: 1.25rem !important;
+        }
+
+        .role-text {
+            color: #0d6efd;
+            font-size: 0.75rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            margin-bottom: 5px;
+            display: block;
+        }
+
+        .member-name {
+            font-size: 1.15rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+            color: #222;
+        }
+
+        .bio-text {
+            font-size: 0.85rem;
+            color: #666;
+            line-height: 1.4;
+            margin-bottom: 12px;
+        }
+
+        .social-links a {
+            color: #bbb;
+            font-size: 0.95rem;
+            margin-right: 12px;
+            transition: 0.3s;
+        }
+
+        .social-links a:hover { color: #0d6efd; }
+
+        /* الحفاظ على الصورة يساراً حتى في الجوال الصغير جداً */
+        .d-flex-custom {
+            display: flex;
+            align-items: stretch;
+        }
+
+
+.partners-wrapper {
+    background: #ffffff;
+    border-top: 1px solid #f1f5f9;
+    overflow: hidden;
+}
+
+.partners-title-center {
+    text-align: center;
+    font-weight: 800;
+    font-size: 1.4rem;
+    color: #1e293b;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+}
+
+/* Viewport hides the overflow */
+.logo-slider-viewport {
+    width: 100%;
+    overflow: hidden;
+    position: relative;
+    padding: 20px 0;
+}
+
+/* The track that actually moves */
+.logo-track {
+    display: flex;
+    width: max-content;
+    gap: 80px; /* Space between logos */
+}
+
+.slide-item {
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.slide-item img {
+    height: 35px;
+    width: auto;
+    filter: grayscale(100%);
+    opacity: 0.5;
+    transition: all 0.4s ease;
+}
+
+.slide-item img:hover {
+    filter: grayscale(0%);
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+/* The Keyframe for Right to Left */
+@keyframes scrollRTL {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+}
+
+.logo-track-animate {
+    animation: scrollRTL 25s linear infinite;
+}
+
+.logo-track-animate:hover {
+    animation-play-state: paused;
+}
+
+
+
+.footer-section {
+    background-color: #fff; /* Dark Navy */
+    color: #ffffff;
+    padding: 80px 0 30px;
+    direction: ltr;
+    text-align: left;
+}
+
+.f-logo-img {
+    height: 100px; /* Adjust based on your logo's proportions */
+    width: auto;
+    object-fit: contain;
+}
+
+.footer-bio {
+    color: #94a3b8;
+    line-height: 1.8;
+    max-width: 450px;
+}
+
+
+.footer-title {
+    font-weight: 700;
+    color: var(--primary-color);
+    margin-bottom: 25px;
+    text-transform: uppercase;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+}
+
+.footer-links {
+    list-style: none;
+    padding: 0;
+}
+
+.footer-links li { margin-bottom: 12px; }
+
+.footer-links a {
+    color: #94a3b8;
+    text-decoration: none;
+}
+
+.footer-links a:hover {
+    color: var(--primary-color);
+}
+
+.footer-contact-list {
+    list-style: none;
+    padding: 0;
+    color: #94a3b8;
+}
+
+.footer-contact-list li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.footer-contact-list i {
+    color: var(--primary-color);
+    font-size: 1.1rem;
+}
+
+.footer-social-links a {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background: rgba(255,255,255,0.05);
+    border-radius: 50%;
+    color: #94a3b8;
+    margin-right: 10px;
+    transition: 0.3s;
+}
+
+.footer-social-links a:hover {
+    color: var(--primary-color);
+}
+
+.footer-bottom {
+    border-color: rgba(255, 255, 255, 0.1) !important;
+}

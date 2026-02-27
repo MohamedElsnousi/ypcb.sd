@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Team | YPCB</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+
+    
+     <!-- Simple Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top shadow-sm">
+        <div class="nave-bard container">
+            <!-- Logo on the left (visible on all devices) -->
+            <a class="navbar-brand" href="index.html">
+                <img src="imgs/logo-2.png" alt="Youth for Peace and Capacity Building Organization Logo">
+            </a>
+            
+            <!-- Mobile toggle button - custom hamburger -->
+            <button class="custom-toggler" type="button" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            
+            <!-- Navigation links centered (desktop) -->
+            <div class="navbar-collapse" id="navbarCollapse">
+                <ul class="navbar-nav text-uppercase">
+                    <!-- Link 1 -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+
+                    <!-- Link 2 -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link" href="#">
+                            about us
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="dropdown1">
+                            <li><a class="dropdown-item" href="team.html">our Team</a></li>
+                            <li><a class="dropdown-item" href="blog.html">blog</a></li>
+                        </ul>
+                    </li>
+
+                    <!-- Link 3 with dropdown (no arrow) -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link" href="#">
+                            what we do
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="dropdown1">
+                            <li><a class="dropdown-item" href="#">child protection</a></li>
+                            <li><a class="dropdown-item" href="#">Capacity Building</a></li>
+                            <li><a class="dropdown-item" href="#">Education</a></li>
+                            <li><a class="dropdown-item" href="#">Environment protection</a></li>
+                            <li><a class="dropdown-item" href="#">food security & nfi</a></li>
+                            <li><a class="dropdown-item" href="#">show all</a></li>
+                           <!--
+                            <li><a class="dropdown-item" href="#">Food security and livelihoods</a></li>
+                            <li><a class="dropdown-item" href="#">Gender and protection</a></li>
+                            <li><a class="dropdown-item" href="#">green economy</a></li>
+                             <li><a class="dropdown-item" href="#">Health / hygiene promotion</a></li>
+                             <li><a class="dropdown-item" href="#">peace building</a></li>
+                             <li><a class="dropdown-item" href="#">wash</a></li> 
+                           -->
+                        </ul>
+                    </li>
+
+                    <!-- Link 4 with dropdown (no arrow) -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link" href="#">
+                            where we work
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="dropdown2">
+                            <li><a class="dropdown-item" href="#">Khartoum</a></li>
+                            <li><a class="dropdown-item" href="#">Port Sudan</a></li>
+                            <li><a class="dropdown-item" href="#">sennar</a></li>
+                            <li><a class="dropdown-item" href="#">Al Qadarif</a></li>
+                        </ul>
+                    </li>
+
+                    <!-- Link 5 -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">get involved</a>
+                    </li>
+
+                    <!-- Donate Button -->
+                    <li class="nav-item">
+                        <button class="btn donate-btn text-uppercase">
+                            Donate
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+
+
+    
+
+    <!-- صفحة الفريق الرئيسية -->
+    <div id="team-page">
+        <!-- الهيدر الرئيسي -->
+        <header class="main-header">
+            <div class="header-content">
+                <h1 class="header-title">Our Team</h1>
+                <p class="header-subtitle">Meet our dedicated team of professionals working hard to achieve our mission of peacebuilding and community empowerment</p>
+            </div>
+        </header>
+
+        <!-- الفلاتر -->
+        <div class="team-container">
+            <div class="team-filter">
+                <button class="filter-btn active" data-filter="all">All Members</button>
+                <button class="filter-btn" data-filter="leadership">Leadership</button>
+                <button class="filter-btn" data-filter="programs">Programs</button>
+                <button class="filter-btn" data-filter="operations">Operations</button>
+                <button class="filter-btn" data-filter="technical">Technical</button>
+            </div>
+
+            <!-- شبكة أعضاء الفريق -->
+            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4" id="team-grid">
+                <!-- سيتم تعبئتها بالبيانات -->
+            </div>
+        </div>
+    </div>
+
+    <!-- صفحة العضو المفرد - تظهر بدلاً من صفحة الفريق -->
+    <div id="member-page" class="member-page">
+        <div class="team-container py-5">
+            <!-- زر الرجوع -->
+            <button class="back-btn" onclick="showTeamPage()">
+                <i class="bi bi-arrow-left"></i> Back to Team
+            </button>
+            
+            <!-- بطاقة العضو المفردة -->
+            <div class="member-single-card">
+                <img id="member-single-photo" src="" alt="" class="member-single-photo">
+                
+                <h1 id="member-single-name" class="member-single-name"></h1>
+                <div id="member-single-position" class="member-single-position"></div>
+                <div id="member-single-department" class="member-single-department"></div>
+                
+                <div id="member-single-bio" class="member-single-bio"></div>
+                
+                <!-- أيقونات التواصل فقط (بدون معلومات الاتصال) -->
+                <div class="member-single-contact">
+                    <h3 class="contact-title">Connect</h3>
+                    <div class="social-icons-large" id="member-social-icons">
+                        <!-- سيتم تعبئتها بالبيانات -->
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+<footer class="footer-section">
+    <div class="container">
+        <div class="row gy-5">
+            <div class="col-lg-5 col-md-12">
+                <div class="footer-brand-wrapper">
+                    <div class="footer-logo mb-4">
+                        <a href="index.html">
+                            <img src="imgs/logo-2.png" alt="YPCB Logo" class="f-logo-img">
+                        </a>
+                    </div>
+                    <p class="footer-bio mb-4">
+                        We are a global non-profit organization dedicated to empowering vulnerable communities through sustainable aid, education, and healthcare in Sudan and beyond.
+                    </p>
+                    <div class="footer-social-links">
+                        <a href="#" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="bi bi-twitter-x"></i></a>
+                        <a href="#" aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6 offset-lg-1 col-md-12">
+                <div class="row">
+                    <div class="col-sm-6 mb-4">
+                        <h5 class="footer-title">Quick Links</h5>
+                        <ul class="footer-links">
+                            <li><a href="index.html">Home</a></li>
+                            <li><a href="about.html">About us</a></li>
+                            <li><a href="blog.html">Blog</a></li>
+                            <li><a href="get-involved.html">Get Involved</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="col-sm-6 mb-4">
+                        <h5 class="footer-title">Contact Us</h5>
+                        <ul class="footer-contact-list">
+                            <li>
+                                <i class="bi bi-geo-alt-fill me-2"></i>
+                                <span>Elgadarif, Sudan</span>
+                            </li>
+                            <li>
+                                <i class="bi bi-telephone-fill me-2"></i>
+                                <span>+1 (234) 567-890</span>
+                            </li>
+                            <li>
+                                <i class="bi bi-envelope-fill me-2"></i>
+                                <span>info@ypcbsd.org</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom mt-5 pt-4">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <p class="mb-0 small text-muted">&copy; 2026 YPCB Organaization. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+
+     <script src="script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

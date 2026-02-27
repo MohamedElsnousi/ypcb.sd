@@ -1,0 +1,1098 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Volunteer Application Form</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <style>
+        :root {
+            --primary-color: #2c5aa0;
+            --secondary-color: #4a90e2;
+            --accent-color: #f72585;
+            --light-color: #f8f9fa;
+            --dark-color: #212529;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e4edf5 100%);
+            color: #333;
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .container {
+            display: flex;
+            max-width: 1200px;
+            width: 100%;
+            background-color: white;
+            border-radius: 16px;
+            overflow: hidden;
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease;
+        }
+        
+        .container:hover {
+            transform: translateY(-5px);
+        }
+        
+        .image-section {
+            flex: 1;
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .image-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1542744173-8e7e53415bb0?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80') center/cover;
+            opacity: 0.15;
+        }
+        
+        .image-content {
+            position: relative;
+            z-index: 2;
+            color: white;
+            text-align: center;
+            max-width: 500px;
+        }
+        
+        .image-content i {
+            font-size: 60px;
+            margin-bottom: 20px;
+            color: rgba(255, 255, 255, 0.9);
+        }
+        
+        .image-title {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+        
+        .image-description {
+            font-size: 16px;
+            opacity: 0.9;
+            margin-bottom: 25px;
+        }
+        
+        .image-features {
+            text-align: left;
+            margin-top: 30px;
+        }
+        
+        .feature-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            font-size: 15px;
+        }
+        
+        .feature-item i {
+            font-size: 18px;
+            margin-right: 12px;
+            margin-bottom: 0;
+        }
+        
+        .form-section {
+            flex: 1.2;
+            padding: 50px 40px;
+            background-color: white;
+        }
+        
+        .form-header {
+            margin-bottom: 30px;
+            position: relative;
+            padding-bottom: 15px;
+        }
+        
+        .form-header::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary-color), var(--secondary-color));
+            border-radius: 2px;
+        }
+        
+        .form-title {
+            font-size: 32px;
+            font-weight: 700;
+            color: var(--primary-color);
+            margin-bottom: 8px;
+        }
+        
+        .form-subtitle {
+            color: #666;
+            font-size: 16px;
+        }
+        
+        .form-group {
+            margin-bottom: 22px;
+            position: relative;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 8px;
+            color: #444;
+            font-weight: 600;
+            font-size: 15px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .form-label i {
+            margin-right: 8px;
+            color: #4a90e2;
+            font-size: 14px;
+        }
+        
+        .form-input, .form-select, .form-textarea {
+            width: 100%;
+            padding: 14px 16px;
+            border: 1.5px solid #e1e8f0;
+            border-radius: 8px;
+            font-size: 15px;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            transition: all 0.3s ease;
+            background-color: #fafcff;
+        }
+        
+        .form-input:focus, .form-select:focus, .form-textarea:focus {
+            outline: none;
+            border-color: #4a90e2;
+            box-shadow: 0 0 0 3px rgba(74, 144, 226, 0.15);
+            background-color: white;
+        }
+        
+        .form-row {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .form-row .form-group {
+            flex: 1;
+        }
+        
+        /* File Upload Styles */
+        .file-upload-container {
+            border: 2px dashed #cbd5e0;
+            border-radius: 8px;
+            padding: 30px 20px;
+            text-align: center;
+            background-color: #f8fafc;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            margin-top: 5px;
+        }
+        
+        .file-upload-container:hover {
+            border-color: #4a90e2;
+            background-color: #f0f7ff;
+        }
+        
+        .file-upload-container.dragover {
+            border-color: #2c5aa0;
+            background-color: #e6f0ff;
+        }
+        
+        .file-upload-icon {
+            font-size: 40px;
+            color: #4a90e2;
+            margin-bottom: 15px;
+        }
+        
+        .file-upload-text {
+            margin-bottom: 10px;
+            font-weight: 500;
+            color: #2d3748;
+        }
+        
+        .file-upload-subtext {
+            font-size: 14px;
+            color: #718096;
+            margin-bottom: 15px;
+        }
+        
+        .browse-btn {
+            background-color: #4a90e2;
+            color: white;
+            padding: 8px 20px;
+            border-radius: 6px;
+            font-weight: 500;
+            font-size: 14px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+        
+        .browse-btn:hover {
+            background-color: #2c5aa0;
+        }
+        
+        .file-input {
+            display: none;
+        }
+        
+        .file-preview {
+            margin-top: 15px;
+            padding: 15px;
+            background-color: #f0f7ff;
+            border-radius: 8px;
+            display: none;
+        }
+        
+        .file-preview.show {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .file-info {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+        
+        .file-details {
+            display: flex;
+            align-items: center;
+        }
+        
+        .file-icon {
+            font-size: 24px;
+            color: #4a90e2;
+            margin-right: 12px;
+        }
+        
+        .file-name {
+            font-weight: 500;
+            color: #2d3748;
+            margin-bottom: 4px;
+            word-break: break-all;
+        }
+        
+        .file-size {
+            font-size: 13px;
+            color: #718096;
+        }
+        
+        .remove-file {
+            background: none;
+            border: none;
+            color: #e53e3e;
+            cursor: pointer;
+            font-size: 18px;
+            transition: color 0.3s ease;
+        }
+        
+        .remove-file:hover {
+            color: #c53030;
+        }
+        
+        .submit-btn {
+            background: linear-gradient(90deg, #2c5aa0, #4a90e2);
+            color: white;
+            padding: 16px 30px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 10px;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .submit-btn i {
+            margin-right: 10px;
+            font-size: 18px;
+        }
+        
+        .submit-btn:hover {
+            background: linear-gradient(90deg, #1e4a8a, #3a7bc8);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 15px rgba(44, 90, 160, 0.2);
+        }
+        
+        .submit-btn:active {
+            transform: translateY(0);
+        }
+        
+        .submit-btn:disabled {
+            background: #cbd5e0;
+            cursor: not-allowed;
+            transform: none;
+            box-shadow: none;
+        }
+        
+        .success-message {
+            background: linear-gradient(90deg, #d4edda, #c3e6cb);
+            color: #155724;
+            padding: 16px;
+            border-radius: 8px;
+            margin-top: 20px;
+            text-align: center;
+            display: none;
+            border-left: 4px solid #28a745;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .error-message {
+            color: #d32f2f;
+            font-size: 14px;
+            margin-top: 5px;
+            display: none;
+            font-weight: 500;
+        }
+        
+        .form-footer {
+            text-align: center;
+            margin-top: 25px;
+            color: #777;
+            font-size: 14px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
+        
+        .form-footer a {
+            color: #4a90e2;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        
+        .form-footer a:hover {
+            text-decoration: underline;
+        }
+        
+        .dashboard-link {
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        .dashboard-link a {
+            display: inline-flex;
+            align-items: center;
+            color: var(--primary-color);
+            font-weight: 600;
+            text-decoration: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            background-color: rgba(44, 90, 160, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .dashboard-link a:hover {
+            background-color: rgba(44, 90, 160, 0.2);
+            text-decoration: none;
+        }
+        
+        /* Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 992px) {
+            .container {
+                flex-direction: column;
+                max-width: 700px;
+            }
+            
+            .image-section {
+                padding: 30px;
+            }
+            
+            .form-section {
+                padding: 40px 30px;
+            }
+        }
+        
+        @media (max-width: 576px) {
+            .form-row {
+                flex-direction: column;
+                gap: 0;
+            }
+            
+            .form-section {
+                padding: 30px 25px;
+            }
+            
+            .image-section {
+                padding: 25px 20px;
+            }
+            
+            .form-title {
+                font-size: 28px;
+            }
+            
+            .image-title {
+                font-size: 26px;
+            }
+        }
+        
+        /* Custom select arrow */
+        .form-select {
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23444' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 16px center;
+            background-size: 16px;
+            padding-right: 40px;
+        }
+        
+        /* Form focus animations */
+        .form-group:focus-within .form-label {
+            color: #2c5aa0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Left Image Section -->
+        <div class="image-section">
+            <div class="image-content">
+                <i class="fas fa-hands-helping"></i>
+                <h2 class="image-title">Join Our Volunteer Team</h2>
+                <p class="image-description">Make a difference in your community. Share your skills, time, and compassion with those who need it most.</p>
+                
+                <div class="image-features">
+                    <div class="feature-item">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Flexible volunteering hours</span>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Various fields to contribute</span>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Training and support provided</span>
+                    </div>
+                    <div class="feature-item">
+                        <i class="fas fa-check-circle"></i>
+                        <span>Make meaningful connections</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Right Form Section -->
+        <div class="form-section">
+            <div class="form-header">
+                <h1 class="form-title">Volunteer Application</h1>
+                <p class="form-subtitle">Please fill out the form below to apply for a volunteer position.</p>
+            </div>
+            
+            <form id="volunteerForm">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="firstName" class="form-label">
+                            <i class="fas fa-user"></i> First Name
+                        </label>
+                        <input type="text" id="firstName" class="form-input" placeholder="Enter your first name" required>
+                        <div class="error-message" id="firstNameError">Please enter your first name</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="lastName" class="form-label">
+                            <i class="fas fa-user"></i> Last Name
+                        </label>
+                        <input type="text" id="lastName" class="form-input" placeholder="Enter your last name" required>
+                        <div class="error-message" id="lastNameError">Please enter your last name</div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email" class="form-label">
+                        <i class="fas fa-envelope"></i> Email Address
+                    </label>
+                    <input type="email" id="email" class="form-input" placeholder="your.email@example.com" required>
+                    <div class="error-message" id="emailError">Please enter a valid email address</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="phone" class="form-label">
+                        <i class="fas fa-phone"></i> Phone Number
+                    </label>
+                    <input type="tel" id="phone" class="form-input" placeholder="(123) 456-7890" required>
+                    <div class="error-message" id="phoneError">Please enter a valid phone number</div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="volunteerField" class="form-label">
+                            <i class="fas fa-briefcase"></i> Preferred Field
+                        </label>
+                        <select id="volunteerField" class="form-select" required>
+                            <option value="" disabled selected>Select volunteer field</option>
+                            <option value="Education & Tutoring">Education & Tutoring</option>
+                            <option value="Health & Care">Health & Care</option>
+                            <option value="Environment & Sustainability">Environment & Sustainability</option>
+                            <option value="Social Services">Social Services</option>
+                            <option value="Technology & Programming">Technology & Programming</option>
+                            <option value="Event Organization">Event Organization</option>
+                            <option value="Other">Other</option>
+                        </select>
+                        <div class="error-message" id="fieldError">Please select a volunteer field</div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="availability" class="form-label">
+                            <i class="fas fa-calendar-alt"></i> Availability
+                        </label>
+                        <select id="availability" class="form-select" required>
+                            <option value="" disabled selected>Select your availability</option>
+                            <option value="Weekends">Weekends</option>
+                            <option value="Evenings (after 5 PM)">Evenings (after 5 PM)</option>
+                            <option value="Mornings (before 12 PM)">Mornings (before 12 PM)</option>
+                            <option value="Flexible hours">Flexible hours</option>
+                            <option value="Full-time volunteer">Full-time volunteer</option>
+                        </select>
+                        <div class="error-message" id="availabilityError">Please select your availability</div>
+                    </div>
+                </div>
+                
+                <!-- CV Upload Section -->
+                <div class="form-group">
+                    <label class="form-label">
+                        <i class="fas fa-file-upload"></i> Attach CV/Resume
+                    </label>
+                    <div class="file-upload-container" id="fileUploadContainer">
+                        <div class="file-upload-icon">
+                            <i class="fas fa-cloud-upload-alt"></i>
+                        </div>
+                        <div class="file-upload-text">Upload your CV/Resume</div>
+                        <div class="file-upload-subtext">Supported formats: PDF, DOC, DOCX (Max size: 5MB)</div>
+                        <button type="button" class="browse-btn" id="browseBtn">Browse Files</button>
+                        <input type="file" id="cvFile" class="file-input" accept=".pdf,.doc,.docx,.txt" required>
+                    </div>
+                    <div class="error-message" id="fileError">Please upload your CV/Resume</div>
+                    
+                    <div class="file-preview" id="filePreview">
+                        <div class="file-info">
+                            <div class="file-details">
+                                <div class="file-icon">
+                                    <i class="fas fa-file-pdf"></i>
+                                </div>
+                                <div>
+                                    <div class="file-name" id="fileName">No file selected</div>
+                                    <div class="file-size" id="fileSize">0 KB</div>
+                                </div>
+                            </div>
+                            <button type="button" class="remove-file" id="removeFile">
+                                <i class="fas fa-times"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+                
+                <button type="submit" class="submit-btn" id="submitBtn">
+                    <i class="fas fa-paper-plane"></i> Submit Application
+                </button>
+                
+                <div class="success-message" id="successMessage">
+                    <i class="fas fa-check-circle" style="margin-right: 10px;"></i>
+                    <strong>Application Submitted Successfully!</strong> Your application has been saved and will be reviewed by our team.
+                </div>
+            </form>
+            
+            <!-- Dashboard Link -->
+            <div class="dashboard-link">
+                <a href="volunteer-dashboard.html" target="_blank">
+                    <i class="fas fa-tachometer-alt me-2"></i> Go to Volunteer Management Dashboard
+                </a>
+            </div>
+            
+            <div class="form-footer">
+                <p>Questions? Contact us at <a href="mailto:volunteer@example.com">volunteer@example.com</a> or call <a href="tel:+1234567890">(123) 456-7890</a></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JS with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom JavaScript -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.getElementById('volunteerForm');
+            const successMessage = document.getElementById('successMessage');
+            const submitBtn = document.getElementById('submitBtn');
+            
+            // Error message elements
+            const firstNameError = document.getElementById('firstNameError');
+            const lastNameError = document.getElementById('lastNameError');
+            const emailError = document.getElementById('emailError');
+            const phoneError = document.getElementById('phoneError');
+            const fieldError = document.getElementById('fieldError');
+            const availabilityError = document.getElementById('availabilityError');
+            const fileError = document.getElementById('fileError');
+            
+            // Input elements
+            const firstNameInput = document.getElementById('firstName');
+            const lastNameInput = document.getElementById('lastName');
+            const emailInput = document.getElementById('email');
+            const phoneInput = document.getElementById('phone');
+            const volunteerFieldInput = document.getElementById('volunteerField');
+            const availabilityInput = document.getElementById('availability');
+            const cvFileInput = document.getElementById('cvFile');
+            
+            // File upload elements
+            const fileUploadContainer = document.getElementById('fileUploadContainer');
+            const browseBtn = document.getElementById('browseBtn');
+            const filePreview = document.getElementById('filePreview');
+            const fileName = document.getElementById('fileName');
+            const fileSize = document.getElementById('fileSize');
+            const removeFileBtn = document.getElementById('removeFile');
+            
+            // Selected file data
+            let selectedFile = null;
+            let cvFileContent = null;
+            
+            // Initialize
+            hideAllErrors();
+            
+            // File upload event listeners
+            browseBtn.addEventListener('click', function() {
+                cvFileInput.click();
+            });
+            
+            fileUploadContainer.addEventListener('click', function(e) {
+                if (e.target !== browseBtn) {
+                    cvFileInput.click();
+                }
+            });
+            
+            cvFileInput.addEventListener('change', function(e) {
+                if (this.files && this.files[0]) {
+                    handleFileSelection(this.files[0]);
+                }
+            });
+            
+            // Drag and drop functionality
+            fileUploadContainer.addEventListener('dragover', function(e) {
+                e.preventDefault();
+                this.classList.add('dragover');
+            });
+            
+            fileUploadContainer.addEventListener('dragleave', function(e) {
+                e.preventDefault();
+                this.classList.remove('dragover');
+            });
+            
+            fileUploadContainer.addEventListener('drop', function(e) {
+                e.preventDefault();
+                this.classList.remove('dragover');
+                
+                if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+                    handleFileSelection(e.dataTransfer.files[0]);
+                    cvFileInput.files = e.dataTransfer.files;
+                }
+            });
+            
+            // Remove file button
+            removeFileBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                resetFileInput();
+            });
+            
+            // Form submission handler
+            form.addEventListener('submit', function(event) {
+                event.preventDefault();
+                
+                // Reset error states
+                hideAllErrors();
+                resetInputStyles();
+                
+                // Validate form
+                const isValid = validateForm();
+                
+                if (isValid) {
+                    // Show success message with animation
+                    successMessage.style.display = 'block';
+                    successMessage.style.animation = 'fadeIn 0.5s ease';
+                    
+                    // Disable submit button temporarily
+                    const originalText = submitBtn.innerHTML;
+                    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving Application...';
+                    submitBtn.disabled = true;
+                    
+                    // Save application data to localStorage
+                    saveApplicationToLocalStorage();
+                    
+                    // Reset form after 3 seconds
+                    setTimeout(function() {
+                        form.reset();
+                        successMessage.style.display = 'none';
+                        submitBtn.innerHTML = originalText;
+                        submitBtn.disabled = false;
+                        
+                        // Reset file input
+                        resetFileInput();
+                    }, 3000);
+                }
+            });
+            
+            // Real-time validation
+            firstNameInput.addEventListener('input', function() {
+                if (firstNameInput.value.trim()) {
+                    hideError(firstNameError, firstNameInput);
+                }
+            });
+            
+            lastNameInput.addEventListener('input', function() {
+                if (lastNameInput.value.trim()) {
+                    hideError(lastNameError, lastNameInput);
+                }
+            });
+            
+            emailInput.addEventListener('input', function() {
+                if (validateEmail(emailInput.value)) {
+                    hideError(emailError, emailInput);
+                }
+            });
+            
+            phoneInput.addEventListener('input', function() {
+                if (validatePhone(phoneInput.value)) {
+                    hideError(phoneError, phoneInput);
+                }
+            });
+            
+            volunteerFieldInput.addEventListener('change', function() {
+                if (volunteerFieldInput.value) {
+                    hideError(fieldError, volunteerFieldInput);
+                }
+            });
+            
+            availabilityInput.addEventListener('change', function() {
+                if (availabilityInput.value) {
+                    hideError(availabilityError, availabilityInput);
+                }
+            });
+            
+            // File validation
+            cvFileInput.addEventListener('change', function() {
+                if (cvFileInput.files && cvFileInput.files[0]) {
+                    hideError(fileError, fileUploadContainer);
+                }
+            });
+            
+            // Functions
+            function handleFileSelection(file) {
+                // Validate file size (max 5MB)
+                const maxSize = 5 * 1024 * 1024; // 5MB in bytes
+                
+                if (file.size > maxSize) {
+                    showError(fileError, fileUploadContainer, 'File size exceeds 5MB limit');
+                    resetFileInput();
+                    return;
+                }
+                
+                // Validate file type
+                const allowedTypes = ['application/pdf', 'application/msword', 
+                                     'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+                                     'text/plain'];
+                const allowedExtensions = ['.pdf', '.doc', '.docx', '.txt'];
+                
+                const fileExtension = '.' + file.name.split('.').pop().toLowerCase();
+                
+                if (!allowedTypes.includes(file.type) && !allowedExtensions.includes(fileExtension)) {
+                    showError(fileError, fileUploadContainer, 'Please upload PDF, DOC, DOCX or TXT files only');
+                    resetFileInput();
+                    return;
+                }
+                
+                selectedFile = file;
+                
+                // Read file content
+                readFileContent(file);
+                
+                // Update UI
+                fileName.textContent = file.name;
+                fileSize.textContent = formatFileSize(file.size);
+                
+                // Set appropriate icon based on file type
+                const fileIcon = filePreview.querySelector('.file-icon i');
+                if (file.type === 'application/pdf' || fileExtension === '.pdf') {
+                    fileIcon.className = 'fas fa-file-pdf';
+                    fileIcon.style.color = '#e74c3c';
+                } else if (file.type.includes('msword') || file.type.includes('wordprocessingml') || 
+                          fileExtension === '.doc' || fileExtension === '.docx') {
+                    fileIcon.className = 'fas fa-file-word';
+                    fileIcon.style.color = '#2c5aa0';
+                } else if (file.type === 'text/plain' || fileExtension === '.txt') {
+                    fileIcon.className = 'fas fa-file-alt';
+                    fileIcon.style.color = '#6c757d';
+                } else {
+                    fileIcon.className = 'fas fa-file';
+                }
+                
+                // Show preview
+                filePreview.classList.add('show');
+                
+                // Hide any file errors
+                hideError(fileError, fileUploadContainer);
+            }
+            
+            function readFileContent(file) {
+                const reader = new FileReader();
+                
+                reader.onload = function(e) {
+                    cvFileContent = e.target.result;
+                };
+                
+                reader.onerror = function(e) {
+                    console.error('Error reading file:', e);
+                    cvFileContent = null;
+                };
+                
+                // Read as text for TXT files, as data URL for other files
+                if (file.type === 'text/plain' || file.name.endsWith('.txt')) {
+                    reader.readAsText(file);
+                } else {
+                    reader.readAsDataURL(file);
+                }
+            }
+            
+            function resetFileInput() {
+                cvFileInput.value = '';
+                selectedFile = null;
+                cvFileContent = null;
+                filePreview.classList.remove('show');
+                fileName.textContent = 'No file selected';
+                fileSize.textContent = '0 KB';
+                
+                // Reset file icon
+                const fileIcon = filePreview.querySelector('.file-icon i');
+                fileIcon.className = 'fas fa-file-pdf';
+                fileIcon.style.color = '#4a90e2';
+            }
+            
+            function formatFileSize(bytes) {
+                if (bytes === 0) return '0 Bytes';
+                const k = 1024;
+                const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+                const i = Math.floor(Math.log(bytes) / Math.log(k));
+                return parseFloat((bytes / Math.pow(k, i)).toFixed(2)) + ' ' + sizes[i];
+            }
+            
+            function saveApplicationToLocalStorage() {
+                // Create application object
+                const application = {
+                    id: Date.now(), // Use timestamp as unique ID
+                    firstName: firstNameInput.value.trim(),
+                    lastName: lastNameInput.value.trim(),
+                    email: emailInput.value.trim(),
+                    phone: phoneInput.value.trim(),
+                    volunteerField: volunteerFieldInput.value,
+                    availability: availabilityInput.value,
+                    cvFileName: selectedFile ? selectedFile.name : null,
+                    cvFileType: selectedFile ? selectedFile.type : null,
+                    cvFileSize: selectedFile ? selectedFile.size : null,
+                    cvFileContent: cvFileContent,
+                    applicationDate: new Date().toISOString(),
+                    status: 'pending' // Default status
+                };
+                
+                // Get existing applications from localStorage
+                let existingApplications = [];
+                const storedApplications = localStorage.getItem('volunteerApplications');
+                
+                if (storedApplications) {
+                    existingApplications = JSON.parse(storedApplications);
+                }
+                
+                // Add new application
+                existingApplications.push(application);
+                
+                // Save to localStorage
+                localStorage.setItem('volunteerApplications', JSON.stringify(existingApplications));
+                
+                // Also save to volunteerFormData for compatibility with dashboard
+                localStorage.setItem('volunteerFormData', JSON.stringify(application));
+                
+                console.log('Application saved to localStorage:', application);
+                console.log('Total applications in localStorage:', existingApplications.length);
+                
+                // Show notification in console
+                showNotification('Application saved successfully! Data is now available in the dashboard.', 'success');
+            }
+            
+            // Validation functions
+            function validateForm() {
+                let isValid = true;
+                
+                // Validate first name
+                if (!firstNameInput.value.trim()) {
+                    showError(firstNameError, firstNameInput);
+                    isValid = false;
+                }
+                
+                // Validate last name
+                if (!lastNameInput.value.trim()) {
+                    showError(lastNameError, lastNameInput);
+                    isValid = false;
+                }
+                
+                // Validate email
+                if (!validateEmail(emailInput.value)) {
+                    showError(emailError, emailInput);
+                    isValid = false;
+                }
+                
+                // Validate phone
+                if (!validatePhone(phoneInput.value)) {
+                    showError(phoneError, phoneInput);
+                    isValid = false;
+                }
+                
+                // Validate volunteer field
+                if (!volunteerFieldInput.value) {
+                    showError(fieldError, volunteerFieldInput);
+                    isValid = false;
+                }
+                
+                // Validate availability
+                if (!availabilityInput.value) {
+                    showError(availabilityError, availabilityInput);
+                    isValid = false;
+                }
+                
+                // Validate CV file
+                if (!selectedFile) {
+                    showError(fileError, fileUploadContainer);
+                    isValid = false;
+                }
+                
+                return isValid;
+            }
+            
+            function validateEmail(email) {
+                const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                return emailPattern.test(email);
+            }
+            
+            function validatePhone(phone) {
+                // Accept various phone formats
+                const phonePattern = /^[\+]?[0-9\s\-\(\)]{10,15}$/;
+                return phonePattern.test(phone);
+            }
+            
+            // Error handling functions
+            function showError(errorElement, inputElement, customMessage = null) {
+                if (customMessage) {
+                    errorElement.textContent = customMessage;
+                }
+                errorElement.style.display = 'block';
+                
+                // Style the input element based on its type
+                if (inputElement.classList.contains('form-input') || 
+                    inputElement.classList.contains('form-select')) {
+                    inputElement.style.borderColor = '#d32f2f';
+                    inputElement.style.boxShadow = '0 0 0 3px rgba(211, 47, 47, 0.1)';
+                } else if (inputElement === fileUploadContainer) {
+                    fileUploadContainer.style.borderColor = '#d32f2f';
+                    fileUploadContainer.style.boxShadow = '0 0 0 3px rgba(211, 47, 47, 0.1)';
+                }
+            }
+            
+            function hideError(errorElement, inputElement) {
+                errorElement.style.display = 'none';
+                
+                // Reset input styling based on its type
+                if (inputElement.classList.contains('form-input') || 
+                    inputElement.classList.contains('form-select')) {
+                    inputElement.style.borderColor = '#e1e8f0';
+                    inputElement.style.boxShadow = 'none';
+                } else if (inputElement === fileUploadContainer) {
+                    fileUploadContainer.style.borderColor = '#cbd5e0';
+                    fileUploadContainer.style.boxShadow = 'none';
+                }
+            }
+            
+            function hideAllErrors() {
+                const errors = [
+                    firstNameError, lastNameError, emailError, 
+                    phoneError, fieldError, availabilityError, fileError
+                ];
+                
+                errors.forEach(error => {
+                    error.style.display = 'none';
+                });
+            }
+            
+            function resetInputStyles() {
+                const inputs = [
+                    firstNameInput, lastNameInput, emailInput, 
+                    phoneInput, volunteerFieldInput, availabilityInput
+                ];
+                
+                inputs.forEach(input => {
+                    input.style.borderColor = '#e1e8f0';
+                    input.style.boxShadow = 'none';
+                });
+                
+                fileUploadContainer.style.borderColor = '#cbd5e0';
+                fileUploadContainer.style.boxShadow = 'none';
+            }
+            
+            // Function to show notification
+            function showNotification(message, type) {
+                // Remove existing notification
+                const existingNotification = document.querySelector('.notification');
+                if (existingNotification) {
+                    existingNotification.remove();
+                }
+                
+                // Create new notification
+                const notification = document.createElement('div');
+                notification.className = `notification ${type}`;
+                notification.innerHTML = `
+                    <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : 'info-circle'} me-2"></i>
+                    ${message}
+                `;
+                
+                // For this demo, we'll show the notification in the console
+                console.log(`${type.toUpperCase()}: ${message}`);
+                
+                // In a real app, you would append to body
+                // document.body.appendChild(notification);
+                
+                // Remove notification after animation
+                setTimeout(() => {
+                    if (notification.parentNode) {
+                        notification.parentNode.removeChild(notification);
+                    }
+                }, 3000);
+            }
+        });
+    </script>
+</body>
+</html>

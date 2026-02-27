@@ -1,0 +1,1446 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Volunteer Management Dashboard</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    
+    <!-- Font Awesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <!-- DataTables CSS -->
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css">
+    
+    <style>
+        :root {
+            --primary-color: #2c5aa0;
+            --secondary-color: #4a90e2;
+            --success-color: #28a745;
+            --warning-color: #ffc107;
+            --danger-color: #dc3545;
+            --light-color: #f8f9fa;
+            --dark-color: #343a40;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f7fa;
+            color: #333;
+            line-height: 1.6;
+            padding: 20px;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header h1 {
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        
+        .header p {
+            opacity: 0.9;
+            font-size: 1.1rem;
+        }
+        
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+        
+        .card {
+            border: none;
+            border-radius: 12px;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+            margin-bottom: 25px;
+            overflow: hidden;
+        }
+        
+        .card-header {
+            background-color: white;
+            border-bottom: 1px solid #eee;
+            padding: 20px;
+            font-weight: 600;
+            color: var(--primary-color);
+            font-size: 1.2rem;
+        }
+        
+        .card-body {
+            padding: 25px;
+        }
+        
+        .btn-custom {
+            background: linear-gradient(to right, var(--primary-color), var(--secondary-color));
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-custom:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(44, 90, 160, 0.2);
+            color: white;
+        }
+        
+        .btn-success {
+            background-color: var(--success-color);
+            border: none;
+        }
+        
+        .btn-warning {
+            background-color: var(--warning-color);
+            border: none;
+            color: #333;
+        }
+        
+        .btn-danger {
+            background-color: var(--danger-color);
+            border: none;
+        }
+        
+        .form-control, .form-select {
+            padding: 12px 15px;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+            margin-bottom: 15px;
+            transition: all 0.3s ease;
+        }
+        
+        .form-control:focus, .form-select:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 0.25rem rgba(44, 90, 160, 0.25);
+        }
+        
+        .form-label {
+            font-weight: 500;
+            margin-bottom: 8px;
+            color: #555;
+        }
+        
+        .status-badge {
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+        
+        .status-pending {
+            background-color: rgba(255, 193, 7, 0.15);
+            color: #d39e00;
+        }
+        
+        .status-approved {
+            background-color: rgba(40, 167, 69, 0.15);
+            color: var(--success-color);
+        }
+        
+        .status-rejected {
+            background-color: rgba(220, 53, 69, 0.15);
+            color: var(--danger-color);
+        }
+        
+        .action-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 6px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border: none;
+            background-color: transparent;
+            transition: all 0.3s ease;
+            margin: 0 3px;
+        }
+        
+        .view-btn {
+            color: var(--primary-color);
+        }
+        
+        .view-btn:hover {
+            background-color: rgba(44, 90, 160, 0.1);
+        }
+        
+        .edit-btn {
+            color: var(--warning-color);
+        }
+        
+        .edit-btn:hover {
+            background-color: rgba(255, 193, 7, 0.1);
+        }
+        
+        .delete-btn {
+            color: var(--danger-color);
+        }
+        
+        .delete-btn:hover {
+            background-color: rgba(220, 53, 69, 0.1);
+        }
+        
+        .cv-btn {
+            color: var(--secondary-color);
+        }
+        
+        .cv-btn:hover {
+            background-color: rgba(74, 144, 226, 0.1);
+        }
+        
+        .stats-card {
+            text-align: center;
+            padding: 25px 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            background-color: white;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+        }
+        
+        .stats-icon {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 15px;
+            font-size: 24px;
+        }
+        
+        .stats-icon.total {
+            background-color: rgba(44, 90, 160, 0.1);
+            color: var(--primary-color);
+        }
+        
+        .stats-icon.pending {
+            background-color: rgba(255, 193, 7, 0.1);
+            color: var(--warning-color);
+        }
+        
+        .stats-icon.approved {
+            background-color: rgba(40, 167, 69, 0.1);
+            color: var(--success-color);
+        }
+        
+        .stats-icon.rejected {
+            background-color: rgba(220, 53, 69, 0.1);
+            color: var(--danger-color);
+        }
+        
+        .stats-number {
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 5px;
+        }
+        
+        .stats-label {
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .table-container {
+            background-color: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+            margin-top: 20px;
+        }
+        
+        .table-header {
+            padding: 20px;
+            border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .table-title {
+            font-weight: 600;
+            color: var(--primary-color);
+            font-size: 1.2rem;
+        }
+        
+        .dataTables_wrapper {
+            padding: 0 20px 20px;
+        }
+        
+        .volunteer-details {
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        
+        .detail-row {
+            display: flex;
+            margin-bottom: 12px;
+            padding-bottom: 12px;
+            border-bottom: 1px solid #eee;
+        }
+        
+        .detail-label {
+            flex: 0 0 200px;
+            font-weight: 600;
+            color: #555;
+        }
+        
+        .detail-value {
+            flex: 1;
+            color: #333;
+        }
+        
+        .cv-preview-container {
+            max-height: 500px;
+            overflow-y: auto;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            background-color: white;
+            margin-top: 15px;
+        }
+        
+        .cv-placeholder {
+            text-align: center;
+            padding: 40px 20px;
+            color: #666;
+        }
+        
+        .cv-placeholder i {
+            font-size: 48px;
+            margin-bottom: 15px;
+            color: #ddd;
+        }
+        
+        .cv-file-info {
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 15px;
+        }
+        
+        .file-icon {
+            font-size: 24px;
+            margin-right: 10px;
+        }
+        
+        .file-icon.pdf {
+            color: #e74c3c;
+        }
+        
+        .file-icon.doc {
+            color: #2c5aa0;
+        }
+        
+        .file-icon.other {
+            color: #6c757d;
+        }
+        
+        .notification {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            padding: 15px 20px;
+            border-radius: 8px;
+            color: white;
+            font-weight: 500;
+            z-index: 1050;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            animation: slideIn 0.3s ease, fadeOut 0.3s ease 2.7s;
+            animation-fill-mode: forwards;
+        }
+        
+        .notification.success {
+            background-color: var(--success-color);
+        }
+        
+        .notification.error {
+            background-color: var(--danger-color);
+        }
+        
+        .notification.info {
+            background-color: var(--primary-color);
+        }
+        
+        @keyframes slideIn {
+            from { transform: translateX(100%); opacity: 0; }
+            to { transform: translateX(0); opacity: 1; }
+        }
+        
+        @keyframes fadeOut {
+            from { opacity: 1; }
+            to { opacity: 0; }
+        }
+        
+        .export-buttons {
+            display: flex;
+            gap: 10px;
+        }
+        
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .detail-row {
+                flex-direction: column;
+            }
+            
+            .detail-label {
+                flex: none;
+                margin-bottom: 5px;
+            }
+            
+            .table-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+            
+            .export-buttons {
+                width: 100%;
+                flex-wrap: wrap;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1><i class="fas fa-hands-helping me-2"></i>Volunteer Management Dashboard</h1>
+            <p>Manage volunteers from application form - View CVs, approve, reject, and export data</p>
+        </div>
+        
+        <!-- Statistics Cards -->
+        <div class="row">
+            <div class="col-md-3">
+                <div class="stats-card">
+                    <div class="stats-icon total">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <div class="stats-number" id="totalVolunteers">0</div>
+                    <div class="stats-label">Total Volunteers</div>
+                </div>
+            </div>
+            
+            <div class="col-md-3">
+                <div class="stats-card">
+                    <div class="stats-icon pending">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <div class="stats-number" id="pendingVolunteers">0</div>
+                    <div class="stats-label">Pending Review</div>
+                </div>
+            </div>
+            
+            <div class="col-md-3">
+                <div class="stats-card">
+                    <div class="stats-icon approved">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                    <div class="stats-number" id="approvedVolunteers">0</div>
+                    <div class="stats-label">Approved</div>
+                </div>
+            </div>
+            
+            <div class="col-md-3">
+                <div class="stats-card">
+                    <div class="stats-icon rejected">
+                        <i class="fas fa-times-circle"></i>
+                    </div>
+                    <div class="stats-number" id="rejectedVolunteers">0</div>
+                    <div class="stats-label">Rejected</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Volunteers Table -->
+        <div class="table-container">
+            <div class="table-header">
+                <div class="table-title">
+                    <i class="fas fa-users me-2"></i>Volunteers from Application Form
+                </div>
+                
+                <div class="export-buttons">
+                    <button class="btn btn-success" id="exportExcelBtn">
+                        <i class="fas fa-file-excel me-2"></i>Export Excel
+                    </button>
+                    
+                    <button class="btn btn-warning" id="exportCsvBtn">
+                        <i class="fas fa-file-csv me-2"></i>Export CSV
+                    </button>
+                    
+                    <button class="btn btn-danger" id="exportJsonBtn">
+                        <i class="fas fa-file-code me-2"></i>Export JSON
+                    </button>
+                </div>
+            </div>
+            
+            <div class="dataTables_wrapper">
+                <table id="volunteersTable" class="table table-striped" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Full Name</th>
+                            <th>Email</th>
+                            <th>Phone</th>
+                            <th>Field</th>
+                            <th>Status</th>
+                            <th>Application Date</th>
+                            <th>CV</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <!-- Will be populated with JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        
+        <!-- Volunteer Details Section (Hidden by default) -->
+        <div id="volunteerDetails" class="volunteer-details" style="display: none;">
+            <h4 class="mb-4"><i class="fas fa-user-circle me-2"></i>Volunteer Details</h4>
+            <div id="detailsContent">
+                <!-- Volunteer details will be populated here -->
+            </div>
+            
+            <!-- CV Preview Section -->
+            <div id="cvPreviewSection" class="mt-4" style="display: none;">
+                <h5><i class="fas fa-file-alt me-2"></i>CV/Resume Preview</h5>
+                <div id="cvPreviewContent">
+                    <div class="cv-placeholder">
+                        <i class="fas fa-file-pdf"></i>
+                        <p>CV/Resume will be displayed here</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-4">
+                <button class="btn btn-secondary" id="closeDetailsBtn">
+                    <i class="fas fa-times me-2"></i>Close Details
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Delete Confirmation Modal -->
+    <div class="modal fade" id="deleteModal" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title text-danger">Confirm Deletion</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Are you sure you want to delete this volunteer? This action cannot be undone.</p>
+                    <div class="alert alert-warning">
+                        <i class="fas fa-exclamation-triangle me-2"></i>
+                        <strong>Warning:</strong> All volunteer data including CV will be permanently deleted.
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                    <button type="button" class="btn btn-danger" id="confirmDeleteBtn">Delete</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- CV Preview Modal -->
+    <div class="modal fade" id="cvModal" tabindex="-1">
+        <div class="modal-dialog modal-xl">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">CV/Resume - <span id="cvVolunteerName"></span></h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <div id="cvModalContent">
+                        <div class="text-center py-5">
+                            <i class="fas fa-file-pdf fa-3x text-muted mb-3"></i>
+                            <p class="text-muted">Loading CV/Resume...</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" id="downloadCvBtn">
+                        <i class="fas fa-download me-2"></i>Download CV
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- DataTables JS -->
+    <script src="https://cdn.datatables.net/1.13.4/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.13.4/js/dataTables.bootstrap5.min.js"></script>
+    
+    <!-- SheetJS for Excel export -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    
+    <!-- PDF.js for PDF rendering -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.4.120/pdf.min.js"></script>
+    
+    <!-- Main Script -->
+    <script>
+        // Initialize variables
+        let volunteers = [];
+        let currentVolunteerId = null;
+        let dataTable = null;
+        let currentCV = null;
+        
+        // Initialize localStorage with volunteer form data if exists
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check if we have volunteer form data in localStorage
+            const formData = localStorage.getItem('volunteerFormData');
+            const volunteerApplications = localStorage.getItem('volunteerApplications');
+            
+            // Try to get data from volunteer form storage
+            if (volunteerApplications) {
+                volunteers = JSON.parse(volunteerApplications);
+            } else if (formData) {
+                // If we have form data, convert it to volunteer format
+                volunteers = convertFormDataToVolunteers(JSON.parse(formData));
+                localStorage.setItem('volunteerApplications', JSON.stringify(volunteers));
+            } else {
+                // Create sample volunteer data if no data exists
+                volunteers = getSampleVolunteers();
+                localStorage.setItem('volunteerApplications', JSON.stringify(volunteers));
+            }
+            
+            // Initialize DataTable
+            initDataTable();
+            
+            // Update statistics
+            updateStatistics();
+            
+            // Add event listeners
+            setupEventListeners();
+            
+            // Check for new volunteer submissions periodically
+            setInterval(checkForNewSubmissions, 5000);
+        });
+        
+        // Function to convert form data to volunteer format
+        function convertFormDataToVolunteers(formData) {
+            if (!Array.isArray(formData)) {
+                formData = [formData];
+            }
+            
+            return formData.map((data, index) => {
+                return {
+                    id: index + 1,
+                    firstName: data.firstName || data.fullName?.split(' ')[0] || 'Unknown',
+                    lastName: data.lastName || data.fullName?.split(' ').slice(1).join(' ') || 'Unknown',
+                    email: data.email || 'No email',
+                    phone: data.phone || 'No phone',
+                    field: data.volunteerField || data.field || 'Not specified',
+                    availability: data.availability || 'Not specified',
+                    status: 'pending',
+                    appDate: new Date().toISOString().split('T')[0],
+                    notes: data.notes || data.motivation || '',
+                    cv: data.cvFile || null,
+                    cvName: data.cvFileName || 'CV.pdf',
+                    cvType: data.cvFileType || 'application/pdf'
+                };
+            });
+        }
+        
+        // Function to get sample volunteers (for testing)
+        function getSampleVolunteers() {
+            return [
+                {
+                    id: 1,
+                    firstName: "John",
+                    lastName: "Doe",
+                    email: "john.doe@example.com",
+                    phone: "(123) 456-7890",
+                    field: "Education & Tutoring",
+                    availability: "Weekends",
+                    status: "approved",
+                    appDate: "2023-10-15",
+                    notes: "Has previous teaching experience",
+                    cv: "sample_cv.pdf",
+                    cvName: "John_Doe_CV.pdf",
+                    cvType: "application/pdf"
+                },
+                {
+                    id: 2,
+                    firstName: "Sarah",
+                    lastName: "Smith",
+                    email: "sarah.smith@example.com",
+                    phone: "(987) 654-3210",
+                    field: "Health & Care",
+                    availability: "Evenings (after 5 PM)",
+                    status: "pending",
+                    appDate: "2023-10-18",
+                    notes: "Looking to gain experience in healthcare",
+                    cv: "sample_cv.pdf",
+                    cvName: "Sarah_Smith_CV.pdf",
+                    cvType: "application/pdf"
+                },
+                {
+                    id: 3,
+                    firstName: "Michael",
+                    lastName: "Johnson",
+                    email: "michael.j@example.com",
+                    phone: "(555) 123-4567",
+                    field: "Environment & Sustainability",
+                    availability: "Flexible hours",
+                    status: "rejected",
+                    appDate: "2023-10-10",
+                    notes: "Not available on weekends",
+                    cv: "sample_cv.pdf",
+                    cvName: "Michael_Johnson_CV.pdf",
+                    cvType: "application/pdf"
+                },
+                {
+                    id: 4,
+                    firstName: "Emma",
+                    lastName: "Wilson",
+                    email: "emma.w@example.com",
+                    phone: "(444) 789-0123",
+                    field: "Technology & Programming",
+                    availability: "Full-time volunteer",
+                    status: "approved",
+                    appDate: "2023-10-05",
+                    notes: "Excellent technical skills",
+                    cv: "sample_cv.pdf",
+                    cvName: "Emma_Wilson_CV.pdf",
+                    cvType: "application/pdf"
+                },
+                {
+                    id: 5,
+                    firstName: "David",
+                    lastName: "Brown",
+                    email: "david.b@example.com",
+                    phone: "(777) 888-9999",
+                    field: "Social Services",
+                    availability: "Mornings (before 12 PM)",
+                    status: "pending",
+                    appDate: "2023-10-20",
+                    notes: "Passionate about community service",
+                    cv: null,
+                    cvName: null,
+                    cvType: null
+                }
+            ];
+        }
+        
+        // Function to initialize DataTable
+        function initDataTable() {
+            dataTable = $('#volunteersTable').DataTable({
+                language: {
+                    url: '//cdn.datatables.net/plug-ins/1.13.4/i18n/en-GB.json'
+                },
+                pageLength: 10,
+                responsive: true,
+                order: [[0, 'desc']],
+                columns: [
+                    { data: 'id' },
+                    { 
+                        data: null,
+                        render: function(data, type, row) {
+                            return row.firstName + ' ' + row.lastName;
+                        }
+                    },
+                    { data: 'email' },
+                    { data: 'phone' },
+                    { data: 'field' },
+                    { 
+                        data: 'status',
+                        render: function(data, type, row) {
+                            let statusText = '';
+                            let statusClass = '';
+                            
+                            if (data === 'pending') {
+                                statusText = 'Pending';
+                                statusClass = 'status-pending';
+                            } else if (data === 'approved') {
+                                statusText = 'Approved';
+                                statusClass = 'status-approved';
+                            } else if (data === 'rejected') {
+                                statusText = 'Rejected';
+                                statusClass = 'status-rejected';
+                            }
+                            
+                            return '<span class="status-badge ' + statusClass + '">' + statusText + '</span>';
+                        }
+                    },
+                    { 
+                        data: 'appDate',
+                        render: function(data) {
+                            return formatDate(data);
+                        }
+                    },
+                    {
+                        data: null,
+                        render: function(data, type, row) {
+                            if (row.cv) {
+                                return '<button class="btn btn-sm btn-outline-primary view-cv-btn" data-id="' + row.id + '">View CV</button>';
+                            } else {
+                                return '<span class="text-muted">No CV</span>';
+                            }
+                        }
+                    },
+                    {
+                        data: null,
+                        render: function(data, type, row) {
+                            return `
+                                <button class="action-btn view-btn" data-id="${row.id}" title="View Details">
+                                    <i class="fas fa-eye"></i>
+                                </button>
+                                <button class="action-btn edit-btn" data-id="${row.id}" title="Change Status">
+                                    <i class="fas fa-edit"></i>
+                                </button>
+                                <button class="action-btn delete-btn" data-id="${row.id}" title="Delete">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            `;
+                        },
+                        orderable: false
+                    }
+                ]
+            });
+            
+            // Load data into table
+            loadVolunteersIntoTable();
+            
+            // Add event listeners to action buttons
+            $('#volunteersTable tbody').on('click', '.view-btn', function() {
+                const id = parseInt($(this).data('id'));
+                viewVolunteerDetails(id);
+            });
+            
+            $('#volunteersTable tbody').on('click', '.edit-btn', function() {
+                const id = parseInt($(this).data('id'));
+                changeVolunteerStatus(id);
+            });
+            
+            $('#volunteersTable tbody').on('click', '.delete-btn', function() {
+                const id = parseInt($(this).data('id'));
+                showDeleteModal(id);
+            });
+            
+            $('#volunteersTable tbody').on('click', '.view-cv-btn', function() {
+                const id = parseInt($(this).data('id'));
+                viewCVModal(id);
+            });
+        }
+        
+        // Function to load volunteers into DataTable
+        function loadVolunteersIntoTable() {
+            dataTable.clear();
+            dataTable.rows.add(volunteers);
+            dataTable.draw();
+        }
+        
+        // Function to setup event listeners
+        function setupEventListeners() {
+            // Close details button
+            $('#closeDetailsBtn').on('click', function() {
+                $('#volunteerDetails').hide();
+            });
+            
+            // Confirm delete button
+            $('#confirmDeleteBtn').on('click', function() {
+                deleteVolunteer(currentVolunteerId);
+                $('#deleteModal').modal('hide');
+            });
+            
+            // Export buttons
+            $('#exportExcelBtn').on('click', exportToExcel);
+            $('#exportCsvBtn').on('click', exportToCSV);
+            $('#exportJsonBtn').on('click', exportToJSON);
+            
+            // Download CV button
+            $('#downloadCvBtn').on('click', downloadCV);
+        }
+        
+        // Function to view volunteer details
+        function viewVolunteerDetails(id) {
+            const volunteer = volunteers.find(v => v.id === id);
+            
+            if (!volunteer) return;
+            
+            currentVolunteerId = id;
+            currentCV = volunteer.cv;
+            
+            // Determine status text
+            let statusText = '';
+            if (volunteer.status === 'pending') {
+                statusText = 'Pending';
+            } else if (volunteer.status === 'approved') {
+                statusText = 'Approved';
+            } else if (volunteer.status === 'rejected') {
+                statusText = 'Rejected';
+            }
+            
+            // Create details HTML
+            const detailsHTML = `
+                <div class="detail-row">
+                    <div class="detail-label">Full Name:</div>
+                    <div class="detail-value">${volunteer.firstName} ${volunteer.lastName}</div>
+                </div>
+                
+                <div class="detail-row">
+                    <div class="detail-label">Email Address:</div>
+                    <div class="detail-value">${volunteer.email}</div>
+                </div>
+                
+                <div class="detail-row">
+                    <div class="detail-label">Phone Number:</div>
+                    <div class="detail-value">${volunteer.phone}</div>
+                </div>
+                
+                <div class="detail-row">
+                    <div class="detail-label">Volunteer Field:</div>
+                    <div class="detail-value">${volunteer.field}</div>
+                </div>
+                
+                <div class="detail-row">
+                    <div class="detail-label">Availability:</div>
+                    <div class="detail-value">${volunteer.availability}</div>
+                </div>
+                
+                <div class="detail-row">
+                    <div class="detail-label">Status:</div>
+                    <div class="detail-value">
+                        <span class="status-badge ${volunteer.status === 'pending' ? 'status-pending' : volunteer.status === 'approved' ? 'status-approved' : 'status-rejected'}">
+                            ${statusText}
+                        </span>
+                    </div>
+                </div>
+                
+                <div class="detail-row">
+                    <div class="detail-label">Application Date:</div>
+                    <div class="detail-value">${formatDate(volunteer.appDate)}</div>
+                </div>
+                
+                <div class="detail-row">
+                    <div class="detail-label">Notes:</div>
+                    <div class="detail-value">${volunteer.notes || 'No notes'}</div>
+                </div>
+                
+                <div class="detail-row">
+                    <div class="detail-label">CV/Resume:</div>
+                    <div class="detail-value">
+                        ${volunteer.cv ? 
+                            `<button class="btn btn-sm btn-primary view-cv-details-btn" data-id="${volunteer.id}">
+                                <i class="fas fa-eye me-1"></i>View CV
+                            </button>` : 
+                            '<span class="text-muted">No CV uploaded</span>'}
+                    </div>
+                </div>
+                
+                <div class="detail-row">
+                    <div class="detail-label">Change Status:</div>
+                    <div class="detail-value">
+                        <button class="btn btn-sm btn-success me-2" onclick="updateVolunteerStatus(${volunteer.id}, 'approved')">
+                            <i class="fas fa-check me-1"></i>Approve
+                        </button>
+                        <button class="btn btn-sm btn-warning me-2" onclick="updateVolunteerStatus(${volunteer.id}, 'pending')">
+                            <i class="fas fa-clock me-1"></i>Set to Pending
+                        </button>
+                        <button class="btn btn-sm btn-danger" onclick="updateVolunteerStatus(${volunteer.id}, 'rejected')">
+                            <i class="fas fa-times me-1"></i>Reject
+                        </button>
+                    </div>
+                </div>
+            `;
+            
+            // Update details content
+            $('#detailsContent').html(detailsHTML);
+            
+            // Add event listener for view CV button in details
+            $('.view-cv-details-btn').on('click', function() {
+                const id = parseInt($(this).data('id'));
+                viewCVModal(id);
+            });
+            
+            // Show or hide CV preview section
+            if (volunteer.cv) {
+                $('#cvPreviewSection').show();
+            } else {
+                $('#cvPreviewSection').hide();
+            }
+            
+            // Show details section
+            $('#volunteerDetails').show();
+            
+            // Scroll to details
+            $('html, body').animate({
+                scrollTop: $('#volunteerDetails').offset().top - 20
+            }, 500);
+        }
+        
+        // Function to view CV in modal
+        function viewCVModal(id) {
+            const volunteer = volunteers.find(v => v.id === id);
+            
+            if (!volunteer || !volunteer.cv) {
+                showNotification('No CV available for this volunteer', 'error');
+                return;
+            }
+            
+            currentVolunteerId = id;
+            
+            // Update modal title
+            $('#cvVolunteerName').text(volunteer.firstName + ' ' + volunteer.lastName);
+            
+            // Show loading state
+            $('#cvModalContent').html(`
+                <div class="text-center py-5">
+                    <div class="spinner-border text-primary mb-3" role="status">
+                        <span class="visually-hidden">Loading...</span>
+                    </div>
+                    <p>Loading CV/Resume...</p>
+                </div>
+            `);
+            
+            // Show modal
+            const cvModal = new bootstrap.Modal(document.getElementById('cvModal'));
+            cvModal.show();
+            
+            // Simulate loading CV (in a real app, you would fetch the actual file)
+            setTimeout(() => {
+                displayCVPreview(volunteer);
+            }, 1000);
+        }
+        
+        // Function to display CV preview
+        function displayCVPreview(volunteer) {
+            const cvContent = document.getElementById('cvModalContent');
+            
+            // Get file extension
+            const fileName = volunteer.cvName || 'CV.pdf';
+            const fileExt = fileName.split('.').pop().toLowerCase();
+            
+            // Create file info display
+            let fileIconClass = 'other';
+            if (fileExt === 'pdf') {
+                fileIconClass = 'pdf';
+            } else if (fileExt === 'doc' || fileExt === 'docx') {
+                fileIconClass = 'doc';
+            }
+            
+            cvContent.innerHTML = `
+                <div class="cv-file-info">
+                    <div class="d-flex align-items-center">
+                        <div class="file-icon ${fileIconClass}">
+                            <i class="fas fa-file-${fileExt === 'pdf' ? 'pdf' : fileExt === 'doc' || fileExt === 'docx' ? 'word' : 'alt'}"></i>
+                        </div>
+                        <div>
+                            <h6>${fileName}</h6>
+                            <p class="text-muted mb-0">Uploaded on ${formatDate(volunteer.appDate)}</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="alert alert-info">
+                    <i class="fas fa-info-circle me-2"></i>
+                    In a real application, the actual CV file would be displayed here.
+                    For this demo, we're showing a preview of what the CV might contain.
+                </div>
+                
+                <div class="cv-preview-container">
+                    <h5>CV Preview</h5>
+                    <hr>
+                    <div class="mb-4">
+                        <h4>${volunteer.firstName} ${volunteer.lastName}</h4>
+                        <p class="text-muted">${volunteer.email} | ${volunteer.phone}</p>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <h6><i class="fas fa-user-tie me-2"></i>Professional Summary</h6>
+                        <p>Volunteer applicant interested in ${volunteer.field}. Available during ${volunteer.availability}.</p>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <h6><i class="fas fa-briefcase me-2"></i>Volunteer Field</h6>
+                        <p>${volunteer.field}</p>
+                    </div>
+                    
+                    <div class="mb-4">
+                        <h6><i class="fas fa-clock me-2"></i>Availability</h6>
+                        <p>${volunteer.availability}</p>
+                    </div>
+                    
+                    ${volunteer.notes ? `
+                    <div class="mb-4">
+                        <h6><i class="fas fa-sticky-note me-2"></i>Notes</h6>
+                        <p>${volunteer.notes}</p>
+                    </div>
+                    ` : ''}
+                    
+                    <div class="mb-4">
+                        <h6><i class="fas fa-calendar-alt me-2"></i>Application Details</h6>
+                        <p>Applied on: ${formatDate(volunteer.appDate)}</p>
+                        <p>Status: <span class="status-badge ${volunteer.status === 'pending' ? 'status-pending' : volunteer.status === 'approved' ? 'status-approved' : 'status-rejected'}">
+                            ${volunteer.status === 'pending' ? 'Pending' : volunteer.status === 'approved' ? 'Approved' : 'Rejected'}
+                        </span></p>
+                    </div>
+                </div>
+            `;
+        }
+        
+        // Function to download CV
+        function downloadCV() {
+            const volunteer = volunteers.find(v => v.id === currentVolunteerId);
+            
+            if (!volunteer || !volunteer.cv) {
+                showNotification('No CV available to download', 'error');
+                return;
+            }
+            
+            // In a real app, you would download the actual file
+            // For this demo, we'll create a sample download
+            const fileName = volunteer.cvName || 'CV.pdf';
+            const fileContent = `CV for ${volunteer.firstName} ${volunteer.lastName}\n\n` +
+                              `Email: ${volunteer.email}\n` +
+                              `Phone: ${volunteer.phone}\n` +
+                              `Field: ${volunteer.field}\n` +
+                              `Availability: ${volunteer.availability}\n` +
+                              `Application Date: ${formatDate(volunteer.appDate)}\n` +
+                              `Status: ${volunteer.status}\n` +
+                              `Notes: ${volunteer.notes || 'None'}\n\n` +
+                              `This is a sample CV file for demonstration purposes.`;
+            
+            const blob = new Blob([fileContent], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = fileName;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            showNotification('CV download started', 'success');
+        }
+        
+        // Function to update volunteer status (called from details view)
+        function updateVolunteerStatus(id, status) {
+            const volunteerIndex = volunteers.findIndex(v => v.id === id);
+            
+            if (volunteerIndex !== -1) {
+                volunteers[volunteerIndex].status = status;
+                
+                // Save to localStorage
+                localStorage.setItem('volunteerApplications', JSON.stringify(volunteers));
+                
+                // Reload table
+                loadVolunteersIntoTable();
+                
+                // Update statistics
+                updateStatistics();
+                
+                // Update details view
+                viewVolunteerDetails(id);
+                
+                // Show notification
+                showNotification(`Volunteer status changed to ${status}`, 'success');
+            }
+        }
+        
+        // Function to change volunteer status (from table edit button)
+        function changeVolunteerStatus(id) {
+            const volunteer = volunteers.find(v => v.id === id);
+            
+            if (!volunteer) return;
+            
+            // Determine current status and next status
+            let currentStatus = volunteer.status;
+            let newStatus = '';
+            
+            if (currentStatus === 'pending') {
+                newStatus = 'approved';
+            } else if (currentStatus === 'approved') {
+                newStatus = 'rejected';
+            } else if (currentStatus === 'rejected') {
+                newStatus = 'pending';
+            }
+            
+            // Update status
+            volunteer.status = newStatus;
+            
+            // Save to localStorage
+            localStorage.setItem('volunteerApplications', JSON.stringify(volunteers));
+            
+            // Reload table
+            loadVolunteersIntoTable();
+            
+            // Update statistics
+            updateStatistics();
+            
+            // Show notification
+            showNotification(`Volunteer status changed to ${newStatus}`, 'success');
+        }
+        
+        // Function to show delete confirmation modal
+        function showDeleteModal(id) {
+            currentVolunteerId = id;
+            $('#deleteModal').modal('show');
+        }
+        
+        // Function to delete volunteer
+        function deleteVolunteer(id) {
+            // Remove volunteer from array
+            volunteers = volunteers.filter(v => v.id !== id);
+            
+            // Save to localStorage
+            localStorage.setItem('volunteerApplications', JSON.stringify(volunteers));
+            
+            // Reload table
+            loadVolunteersIntoTable();
+            
+            // Update statistics
+            updateStatistics();
+            
+            // Hide details if showing
+            $('#volunteerDetails').hide();
+            
+            // Show notification
+            showNotification('Volunteer deleted successfully', 'success');
+        }
+        
+        // Function to check for new volunteer submissions
+        function checkForNewSubmissions() {
+            const formData = localStorage.getItem('volunteerFormData');
+            
+            if (formData) {
+                const newVolunteers = convertFormDataToVolunteers(JSON.parse(formData));
+                
+                // Check if we have new volunteers
+                let hasNew = false;
+                newVolunteers.forEach(newVol => {
+                    const exists = volunteers.some(v => 
+                        v.email === newVol.email && 
+                        v.firstName === newVol.firstName && 
+                        v.lastName === newVol.lastName
+                    );
+                    
+                    if (!exists) {
+                        // Add new volunteer with a new ID
+                        newVol.id = volunteers.length > 0 ? Math.max(...volunteers.map(v => v.id)) + 1 : 1;
+                        volunteers.push(newVol);
+                        hasNew = true;
+                    }
+                });
+                
+                if (hasNew) {
+                    // Save updated volunteers
+                    localStorage.setItem('volunteerApplications', JSON.stringify(volunteers));
+                    
+                    // Clear form data
+                    localStorage.removeItem('volunteerFormData');
+                    
+                    // Reload table
+                    loadVolunteersIntoTable();
+                    
+                    // Update statistics
+                    updateStatistics();
+                    
+                    // Show notification
+                    showNotification('New volunteer applications received!', 'info');
+                }
+            }
+        }
+        
+        // Function to update statistics
+        function updateStatistics() {
+            const total = volunteers.length;
+            const pending = volunteers.filter(v => v.status === 'pending').length;
+            const approved = volunteers.filter(v => v.status === 'approved').length;
+            const rejected = volunteers.filter(v => v.status === 'rejected').length;
+            
+            $('#totalVolunteers').text(total);
+            $('#pendingVolunteers').text(pending);
+            $('#approvedVolunteers').text(approved);
+            $('#rejectedVolunteers').text(rejected);
+        }
+        
+        // Function to export to Excel
+        function exportToExcel() {
+            // Prepare data for export
+            const exportData = volunteers.map(volunteer => {
+                // Determine status text
+                let statusText = '';
+                if (volunteer.status === 'pending') {
+                    statusText = 'Pending';
+                } else if (volunteer.status === 'approved') {
+                    statusText = 'Approved';
+                } else if (volunteer.status === 'rejected') {
+                    statusText = 'Rejected';
+                }
+                
+                return {
+                    'ID': volunteer.id,
+                    'First Name': volunteer.firstName,
+                    'Last Name': volunteer.lastName,
+                    'Full Name': volunteer.firstName + ' ' + volunteer.lastName,
+                    'Email': volunteer.email,
+                    'Phone': volunteer.phone,
+                    'Field': volunteer.field,
+                    'Availability': volunteer.availability,
+                    'Status': statusText,
+                    'Application Date': formatDate(volunteer.appDate),
+                    'CV Available': volunteer.cv ? 'Yes' : 'No',
+                    'CV Name': volunteer.cvName || 'N/A',
+                    'Notes': volunteer.notes || ''
+                };
+            });
+            
+            // Create worksheet
+            const ws = XLSX.utils.json_to_sheet(exportData);
+            
+            // Create workbook
+            const wb = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(wb, ws, "Volunteers");
+            
+            // Generate file name
+            const fileName = `volunteers_${new Date().toISOString().split('T')[0]}.xlsx`;
+            
+            // Save file
+            XLSX.writeFile(wb, fileName);
+            
+            showNotification('Data exported to Excel successfully', 'success');
+        }
+        
+        // Function to export to CSV
+        function exportToCSV() {
+            // Prepare data for export
+            const exportData = volunteers.map(volunteer => {
+                // Determine status text
+                let statusText = '';
+                if (volunteer.status === 'pending') {
+                    statusText = 'Pending';
+                } else if (volunteer.status === 'approved') {
+                    statusText = 'Approved';
+                } else if (volunteer.status === 'rejected') {
+                    statusText = 'Rejected';
+                }
+                
+                return {
+                    'ID': volunteer.id,
+                    'First Name': volunteer.firstName,
+                    'Last Name': volunteer.lastName,
+                    'Full Name': volunteer.firstName + ' ' + volunteer.lastName,
+                    'Email': volunteer.email,
+                    'Phone': volunteer.phone,
+                    'Field': volunteer.field,
+                    'Availability': volunteer.availability,
+                    'Status': statusText,
+                    'Application Date': formatDate(volunteer.appDate),
+                    'CV Available': volunteer.cv ? 'Yes' : 'No',
+                    'CV Name': volunteer.cvName || 'N/A',
+                    'Notes': volunteer.notes || ''
+                };
+            });
+            
+            // Convert to CSV
+            const headers = Object.keys(exportData[0]);
+            const csvRows = [];
+            
+            // Add header row
+            csvRows.push(headers.join(','));
+            
+            // Add data rows
+            exportData.forEach(row => {
+                const values = headers.map(header => {
+                    const escaped = ('' + row[header]).replace(/"/g, '""');
+                    return `"${escaped}"`;
+                });
+                csvRows.push(values.join(','));
+            });
+            
+            const csvString = csvRows.join('\n');
+            
+            // Create download link
+            const blob = new Blob([csvString], { type: 'text/csv;charset=utf-8;' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `volunteers_${new Date().toISOString().split('T')[0]}.csv`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            
+            showNotification('Data exported to CSV successfully', 'success');
+        }
+        
+        // Function to export to JSON
+        function exportToJSON() {
+            // Create JSON string
+            const jsonString = JSON.stringify(volunteers, null, 2);
+            
+            // Create download link
+            const blob = new Blob([jsonString], { type: 'application/json' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `volunteers_${new Date().toISOString().split('T')[0]}.json`;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            
+            showNotification('Data exported to JSON successfully', 'success');
+        }
+        
+        // Function to format date
+        function formatDate(dateString) {
+            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+            return new Date(dateString).toLocaleDateString('en-US', options);
+        }
+        
+        // Function to show notification
+        function showNotification(message, type) {
+            // Remove existing notification
+            const existingNotification = document.querySelector('.notification');
+            if (existingNotification) {
+                existingNotification.remove();
+            }
+            
+            // Create new notification
+            const notification = document.createElement('div');
+            notification.className = `notification ${type}`;
+            notification.innerHTML = `
+                <i class="fas fa-${type === 'success' ? 'check-circle' : type === 'error' ? 'exclamation-circle' : 'info-circle'} me-2"></i>
+                ${message}
+            `;
+            
+            document.body.appendChild(notification);
+            
+            // Remove notification after animation
+            setTimeout(() => {
+                if (notification.parentNode) {
+                    notification.parentNode.removeChild(notification);
+                }
+            }, 3000);
+        }
+    </script>
+</body>
+</html>

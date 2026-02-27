@@ -1,0 +1,413 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Project Details | YPCB</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+
+   <!-- Simple Navigation Bar -->
+    <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top shadow-sm">
+        <div class="nave-bard container">
+            <!-- Logo on the left (visible on all devices) -->
+            <a class="navbar-brand" href="index.html">
+                <img src="imgs/logo-2.png" alt="Youth for Peace and Capacity Building Organization Logo">
+            </a>
+            
+            <!-- Mobile toggle button - custom hamburger -->
+            <button class="custom-toggler" type="button" aria-label="Toggle navigation">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            
+            <!-- Navigation links centered (desktop) -->
+            <div class="navbar-collapse" id="navbarCollapse">
+                <ul class="navbar-nav text-uppercase">
+                    <!-- Link 1 -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">Home</a>
+                    </li>
+
+                    <!-- Link 2 -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link" href="about.html">
+                            about us
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="dropdown1">
+                            <li><a class="dropdown-item" href="team.html">our Team</a></li>
+                            <li><a class="dropdown-item" href="blog.html">blog</a></li>
+                        </ul>
+                    </li>
+
+                    <!-- Link 3 with dropdown (no arrow) -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link" href="#">
+                            what we do
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="dropdown1">
+                            <li><a class="dropdown-item" href="#">child protection</a></li>
+                            <li><a class="dropdown-item" href="#">Capacity Building</a></li>
+                            <li><a class="dropdown-item" href="#">Education</a></li>
+                            <li><a class="dropdown-item" href="#">Environment protection</a></li>
+                            <li><a class="dropdown-item" href="#">food security & nfi</a></li>
+                            <li><a class="dropdown-item" href="#">show all</a></li>
+                           <!--
+                            <li><a class="dropdown-item" href="#">Food security and livelihoods</a></li>
+                            <li><a class="dropdown-item" href="#">Gender and protection</a></li>
+                            <li><a class="dropdown-item" href="#">green economy</a></li>
+                             <li><a class="dropdown-item" href="#">Health / hygiene promotion</a></li>
+                             <li><a class="dropdown-item" href="#">peace building</a></li>
+                             <li><a class="dropdown-item" href="#">wash</a></li> 
+                           -->
+                        </ul>
+                    </li>
+
+                    <!-- Link 4 with dropdown (no arrow) -->
+                    <li class="nav-item dropdown">
+                        <a class="nav-link" href="#">
+                            where we work
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="dropdown2">
+                            <li><a class="dropdown-item" href="#">Khartoum</a></li>
+                            <li><a class="dropdown-item" href="#">Port Sudan</a></li>
+                            <li><a class="dropdown-item" href="#">sennar</a></li>
+                            <li><a class="dropdown-item" href="#">Al Qadarif</a></li>
+                        </ul>
+                    </li>
+
+                    <!-- Link 5 -->
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">get involved</a>
+                    </li>
+
+                    <!-- Donate Button -->
+                    <li class="nav-item">
+                        <button class="btn donate-btn text-uppercase">
+                            Donate
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+
+    
+
+<div class="container py-5 mt-5">
+    <div class="mb-4 mt-5">
+        <a href="blog.html" class="fw-bold text-decoration-none small back-btn"
+        >← BACK TO PROJECTS</a></div>
+
+    <div class="row g-5">
+        <div class="col-lg-8">
+            <div class="img-container"><img id="p-image" src="" alt=""></div>
+            
+<div class="info-bar">
+    <div id="p-date" class="small fw-bold text-muted"></div>
+    <div class="social-share d-flex align-items-center">
+        <span class="me-3 small fw-bold text-uppercase" style="letter-spacing: 1px;">Share:</span>
+        
+        <a href="#" onclick="shareOnFacebook(event)" class="text-dark me-3" title="Share on Facebook">
+            <i class="fab fa-facebook-f"></i>
+        </a>
+
+        <a href="#" onclick="shareOnTwitter(event)" class="text-dark me-3" title="Share on Twitter">
+            <i class="fab fa-twitter"></i>
+        </a>
+        
+        <a href="#" id="email-share" class="text-dark me-3" title="Share via Email">
+            <i class="fas fa-envelope"></i>
+        </a>
+
+        <a href="#" onclick="copyProjectLink(event)" class="text-dark" title="Copy Link" id="copy-btn">
+            <i class="fas fa-link"></i>
+            <span id="copy-toast" style="display:none; position: absolute; background: #000; color: #fff; font-size: 10px; padding: 2px 6px; border-radius: 4px; margin-left: 5px; bottom: 100%;">Copied!</span>
+        </a>
+    </div>
+</div>
+
+            <h1 id="p-name" class="p-title-main"></h1>
+            <h5 class="fw-bold text-uppercase mb-3">Project description</h5>
+            <p id="p-desc" class="text-muted"></p>
+        </div>
+
+        <div class="col-lg-4">
+            <div class="sidebar">
+                <h5 class="fw-bold mb-4">Project Summary</h5>
+                <div class="label">Donor</div><div id="p-donor" class="value"></div>
+                <div class="label">Location</div><div id="p-location" class="value"></div>
+                <div class="label">Budget</div><div id="p-budget" class="value"></div>
+                <div class="label">Beneficiaries</div><div id="p-type" class="value"></div>
+                <div class="label">Reach</div><div id="p-count" class="value"></div>
+                <div class="label">Status</div><div id="p-status" class="mt-2"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+const data = {
+    'clothes-campaign': {
+        name: "Clothes Collection & Distribution Campaign",
+        donor: "Direct fund raining / Sudanese community in Al-Bani and Upper State",
+        loc: "Port-Sudan, Al-Gadaref, Al-Daba, Singa, and Omdurman",
+        budget: "7,000 USD",
+        type: "Men, women, boys, and girls form IDPs and host communities",
+        count: "3,000 individuals",
+        status: "On Going",
+        date: "Feb 2026",
+        img: "imgs/pesea.jpg",
+        desc: "This project is the result of a community-led effort, represented by in-kind support in the form of clothing, shoes, and medicines provided by the Sudanese Association in Al-Bani and the Upper States, estimated at 111 cartons. In addition, Youth for Peace Organization undertook the task of fundraising to cover logistical costs. Accordingly, approximately USD 7,000 was raised to cover transportation costs, communication expenses, government fees, printing, and incentives for volunteers. The donations were distributed to vulnerable groups in Red Sea State, Al-Gadarif, Khartoum, Sennar, and Al-Dabba."
+    },
+    'psea-sessions': {
+        name: "Awareness-raising Sessions on PSEA",
+        donor: "Norwegian Refugee Council (NRC)",
+        loc: "Al-Gadaref",
+        budget: "5,000 USD",
+        type: "Youth and Women Groups from the local community",
+        count: "3,000 individuals",
+        status: "On Going",
+        date: "2026",
+        img: "imgs/psea.jpg",
+        desc: "The project aims to raise awareness among local communities and displaced communities in the state about the importance of understanding the forms and patterns of sexual exploitation and abuse, how to prevent them, and reporting mechanisms."
+    },
+    'lab': {
+        name: "Rehabilitation of the Computer Laboratory at Red Sea Technical College",
+        donor: "Norwegian Refugee Council (NRC)",
+        loc: "Read Sea State, Port-Sudan ",
+        budget: "5,000 USD",
+        type: "University Students",
+        count: "2,500 individuals",
+        status: "Closed",
+        date: "2 Months",
+        img: "imgs/it lab.png",
+        desc: "The Computer Laboratory Rehabilitation Project aims to restore and rehabilitate educational facilities for university students. These facilities were among the most severely affected, as they were used as shelters following the outbreak of the war in Khartoum. In addition, they hosted universities relocated from Khartoum, accommodating student numbers far beyond their intended capacity, all under extremely challenging security and economic conditions."
+    },
+    'gbv-sessions': {
+        name: "GBV Awareness-raising Sessions",
+        donor: "Norwegian Refugee Council (NRC)",
+        loc: "Al-Gadaref",
+        budget: "5,000 USD",
+        type: "Youth and Women Groups from the local community and IDPs",
+        count: "3,000 individuals",
+        status: "Closed",
+        date: "2025-2026",
+        img: "imgs/protection.png",
+        desc: "This project aims to raise awareness on issues related to gender-based violence (GBV), highlight its importance, and clarify some common misconceptions within the local community and displaced populations in Gedaref."
+    },
+    'humanitarian-support': {
+        name: "Providing Humanitarian Support (Dignity Kits)",
+        donor: "IOM and Bank Al-Nile",
+        loc: "Al-Gedaref State, Al-Gedaref Municipality and East Al- Galabat Localities",
+        budget: "3,000,000 SDG",
+        type: "IDPs",
+        count: "1,600 Household",
+        status: "Closed",
+        date: "One Month",
+        img: "imgs/education support.png",
+        desc: "The project aims to provide humanitarian support in the form of dignity kits and hygiene kits to internally displaced persons (IDPs) from Khartoum State and East Gezira, residing in Gedaref State in shelters in Gedaref Municipality and Doka, East Galabat Locality. IOM provided the Youth for Peace and Capacity Building Organization with 1,600 dignity kits and hygiene kits, while Nile Bank covered all logistical costs and volunteer wages."
+    },
+    'sennar-idps': {
+        name: "Providing Clothes and Protection Services for Sennar IDPs in AL-Gedaref ",
+        donor: "Norwegian Refugee Council – NRC",
+        loc: "Al-Gedaref State",
+        budget: "25,000 USD",
+        type: "IDPs",
+        count: "520 individuals",
+        status: "Closed",
+        date: "4 months",
+        img: "imgs/winter.png",
+        desc: "Child clothes distribution and PSEA training sessions."
+    },
+    'friday-breakfast': {
+        name: "Friday Breakfast initiative funded by the Sudanese Community in Ireland",
+        donor: "Sudanese Community in Ireland",
+        loc: "Al-Gedaref State",
+        budget: "2,000 USD",
+        type: "IDPs",
+        count: "600 Household",
+        status: "Closed",
+        date: "2 months",
+        img: "imgs/water.png",
+        desc: "The Friday Iftar Initiative is an initiative led by Sudanese residents in Ireland, headed by Mr. Mohamed Amir, Chairman of the Organization’s Board of Directors. The initiative was launched in response to the urgent need for food and to help address the hunger gap that accompanied the first waves of displacement from Singa and Al-Jazira to Gedaref."
+    },
+    'gbv-workshop': {
+        name: "GBV Workshop training",
+        donor: "YPCB Board",
+        loc: "Sinnar State, Singa City",
+        budget: "500 USD",
+        type: "Youth and Women Groups from the local community and IDPs",
+        count: "25 individuals",
+        status: "Closed",
+        date: "Completed",
+        img: "imgs/protection.png",
+        desc: "The organization has conducted a one-day workshop training in Singa, Sennar state, about GBV main concepts, effects, and stereotypes, the workshop was funded by the Public Organization for Reconstruction and Development, the total number of participants was 25, 20 females, and 5 males, that was on the 16th of December 23"
+    }
+};
+
+const id = new URLSearchParams(window.location.search).get('id');
+const p = data[id];
+if(p) {
+    document.getElementById('p-name').innerText = p.name;
+    document.getElementById('p-donor').innerText = p.donor;
+    document.getElementById('p-location').innerText = p.loc;
+    document.getElementById('p-budget').innerText = p.budget;
+    document.getElementById('p-type').innerText = p.type;
+    document.getElementById('p-count').innerText = p.count;
+    document.getElementById('p-desc').innerText = p.desc;
+    document.getElementById('p-date').innerText = p.date;
+    document.getElementById('p-image').src = p.img;
+    document.getElementById('p-status').innerHTML = `<span class="badge ${p.status === 'On Going' ? 'bg-warning' : 'bg-primary'}">${p.status}</span>`;
+}
+
+// وظيفة المشاركة على فيسبوك
+function shareOnFacebook(e) {
+    e.preventDefault();
+    const projectUrl = window.location.href; // يأخذ رابط الصفحة الحالية تلقائياً
+    const fbUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(projectUrl)}`;
+    window.open(fbUrl, 'pop-up', 'left=20,top=20,width=500,height=500,toolbar=1,resizable=0');
+}
+
+// وظيفة المشاركة عبر البريد الإلكتروني (تحديث الرابط تلقائياً)
+function setupEmailShare(projectName) {
+    const projectUrl = window.location.href;
+    const subject = encodeURIComponent(`Project: ${projectName}`);
+    const body = encodeURIComponent(`Check out this project from YPCB: ${projectName}\n\nLink: ${projectUrl}`);
+    const mailtoLink = `mailto:?subject=${subject}&body=${body}`;
+    document.getElementById('email-share').setAttribute('href', mailtoLink);
+}
+
+// استدعاء الوظيفة داخل كود جلب البيانات الأصلي
+if(p) {
+    // ... الكود السابق الخاص بتعبئة البيانات ...
+    document.getElementById('p-name').innerText = p.name;
+    
+    // تفعيل أزرار المشاركة بناءً على اسم المشروع المفتوح
+    setupEmailShare(p.name);
+}
+
+
+// 1. وظيفة النسخ إلى الحافظة (Copy to Clipboard)
+function copyProjectLink(e) {
+    e.preventDefault();
+    const url = window.location.href;
+    
+    navigator.clipboard.writeText(url).then(() => {
+        const toast = document.getElementById('copy-toast');
+        toast.style.display = 'inline';
+        setTimeout(() => { toast.style.display = 'none'; }, 2000); // يختفي التنبيه بعد ثانيتين
+    });
+}
+
+// وظيفة الفيسبوك (للتذكير)
+function shareOnFacebook(e) {
+    e.preventDefault();
+    const fbUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}`;
+    window.open(fbUrl, 'pop-up', 'width=600,height=400');
+}
+
+
+// وظيفة المشاركة على تويتر (X)
+function shareOnTwitter(e) {
+    e.preventDefault();
+    const projectUrl = window.location.href;
+    const projectTitle = document.getElementById('p-name').innerText;
+    const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(projectTitle)}&url=${encodeURIComponent(projectUrl)}`;
+    window.open(twitterUrl, 'pop-up', 'width=600,height=400');
+}
+
+
+// 3. تحديث رابط البريد تلقائياً (استدعها داخل كود التحميل الأصلي)
+function setupEmailShare(projectName) {
+    const subject = encodeURIComponent(`YPCB Project: ${projectName}`);
+    const body = encodeURIComponent(`I thought you might be interested in this project:\n\n${projectName}\n\nRead more here: ${window.location.href}`);
+    document.getElementById('email-share').setAttribute('href', `mailto:?subject=${subject}&body=${body}`);
+}
+
+// --- تأكد من استدعاء setupEmailShare عند تحميل البيانات كما فعلنا سابقاً ---
+if(p) {
+    // ... بقية الأكواد الخاصة بالعرض ...
+    setupEmailShare(p.name);
+}
+
+</script>
+
+
+
+
+<footer class="footer-section">
+    <div class="container">
+        <div class="row gy-5">
+            <div class="col-lg-5 col-md-12">
+                <div class="footer-brand-wrapper">
+                    <div class="footer-logo mb-4">
+                        <a href="index.html">
+                            <img src="imgs/logo-2.png" alt="YPCB Logo" class="f-logo-img">
+                        </a>
+                    </div>
+                    <p class="footer-bio mb-4">
+                        We are a global non-profit organization dedicated to empowering vulnerable communities through sustainable aid, education, and healthcare in Sudan and beyond.
+                    </p>
+                    <div class="footer-social-links">
+                        <a href="#" aria-label="Facebook"><i class="bi bi-facebook"></i></a>
+                        <a href="#" aria-label="Instagram"><i class="bi bi-instagram"></i></a>
+                        <a href="#" aria-label="Twitter"><i class="bi bi-twitter-x"></i></a>
+                        <a href="#" aria-label="LinkedIn"><i class="bi bi-linkedin"></i></a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-6 offset-lg-1 col-md-12">
+                <div class="row">
+                    <div class="col-sm-6 mb-4">
+                        <h5 class="footer-title">Quick Links</h5>
+                        <ul class="footer-links">
+                            <li><a href="index.html">Home</a></li>
+                            <li><a href="about.html">About us</a></li>
+                            <li><a href="blog.html">Blog</a></li>
+                            <li><a href="get-involved.html">Get Involved</a></li>
+                        </ul>
+                    </div>
+
+                    <div class="col-sm-6 mb-4">
+                        <h5 class="footer-title">Contact Us</h5>
+                        <ul class="footer-contact-list">
+                            <li>
+                                <i class="bi bi-geo-alt-fill me-2"></i>
+                                <span>Elgadarif, Sudan</span>
+                            </li>
+                            <li>
+                                <i class="bi bi-telephone-fill me-2"></i>
+                                <span>+1 (234) 567-890</span>
+                            </li>
+                            <li>
+                                <i class="bi bi-envelope-fill me-2"></i>
+                                <span>info@ypcbsd.org</span>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer-bottom mt-5 pt-4">
+            <div class="row">
+                <div class="col-md-12 text-center">
+                    <p class="mb-0 small text-muted">&copy; 2026 YPCB Organaization. All rights reserved.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+    <script src="script.js"></script>
+     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
